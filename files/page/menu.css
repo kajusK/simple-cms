@@ -1,0 +1,60 @@
+/* --------------------------------------
+* Yet another simple CMS
+*
+* Menu css file
+* --------------------------------------
+* Jakub Kaderka <jakub.kaderka@gmail.com>
+* 2013
+* --------------------------------------
+*/
+
+#menu {
+	display: block;
+	margin: 0px auto;
+	padding: 0px;
+	list-style-type: none;
+	white-space: nowrap;
+}
+
+#menu li {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+#menu li ul {
+	z-index: 100;
+	display: none;
+	position:absolute;
+	padding: 0px;
+	margin: 0px;
+	margin-top: -2px;
+
+	border: 1px solid;
+}
+
+#menu li ul li {
+	display: block;
+	margin: 0px;
+
+	border-bottom: 1px solid;
+}
+
+.menu_a {
+	border-left: 1px solid;
+	border-right: 1px solid;
+}
+
+#menu a {
+	display: block;
+	text-decoration: none;
+	padding: 4px 3px;
+}
+
+#menu li:hover ul {
+	display: block;
+}
+
+#menu li:hover .menu_a {
+	border-left: 1px solid;
+	border-right: 1px solid;
+}

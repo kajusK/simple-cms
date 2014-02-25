@@ -1,0 +1,56 @@
+<?php
+/**
+ * Yet another simple CMS
+ *
+ * @copyright 2014 Jakub Kaderka
+ * @license GNU General Public License, version 2; see LICENSE.txt
+ */
+
+//no direct access
+defined("IN_CMS") or die("Unauthorized access");
+?>
+
+<div id="cathegory">
+<?php foreach ($articles as $a) : ?>
+	<div class="cat_item">
+		<h2 class="cat_item_title">
+			<a href="<?= $a['link'] ?>"><?= $a['title'] ?></a>
+		</h2>
+		<p class="cat_item_desc"><?= $a['description'] ?></p>
+		<div class="cat_item_info"><?= $a['date'] ?></div>
+	</div>
+<?php endforeach ?>
+<?php if ($nav) : ?>
+	<div id="cat_nav">
+	<?php if (isset($first)) : ?>
+		<a href="<?= $first ?>">&lt;&lt;</a>
+	<?php else : ?>
+		&lt;&lt;
+	<?php endif ?>
+	<?php if (isset($prev)) : ?>
+		<a href="<?= $prev ?>">&lt;</a>
+	<?php else : ?>
+		&lt;
+	<?php endif ?>
+
+	<?php foreach ($nav as $n => $val) : ?>
+		<?php if ($val) : ?>
+		<a href="<?= $val ?>"><?= $n ?></a>
+		<?php else : ?>
+		<?= $n ?>
+		<?php endif ?>
+	<?php endforeach ?>
+
+	<?php if (isset($next)) : ?>
+		<a href="<?= $next ?>">&gt;</a>
+	<?php else : ?>
+		&gt;
+	<?php endif ?>
+	<?php if (isset($last)) : ?>
+		<a href="<?= $last ?>">&gt;&gt;</a>
+	<?php else : ?>
+		&gt;&gt;
+	<?php endif ?>
+	</div>
+<?php endif ?>
+</div>

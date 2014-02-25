@@ -1,0 +1,57 @@
+/* --------------------------------------
+* Yet another simple CMS
+*
+* Main css file
+* --------------------------------------
+* Jakub Kaderka <jakub.kaderka@gmail.com>
+* 2013
+* --------------------------------------
+*/
+
+body {
+	margin: 0px;
+}
+
+#wrapper {
+	display: block;
+	min-width: 400px;
+}
+
+#header {
+	margin: 0px;
+	padding: 0px;
+	position: relative;
+}
+
+#content {
+	border-top: 1px solid;
+}
+
+#footer {
+}
+
+/* ************************************************************
+* Content
+************************************************************* */
+#paging_nav {
+}
+
+#nav_nums {
+	display: inline-block;
+}
+
+#lang_switch {
+	position: absolute;
+	text-align: right;
+	right: 0px;
+}
+#lang_switch a {
+	margin-right: 8px;
+}
+
+
+
+
+textarea {
+	resize: none;
+}

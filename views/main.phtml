@@ -1,0 +1,52 @@
+<?php
+/**
+ * Yet another simple CMS
+ *
+ * @copyright 2014 Jakub Kaderka
+ * @license GNU General Public License, version 2; see LICENSE.txt
+ */
+
+//no direct access
+defined("IN_CMS") or die("Unauthorized access");
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?= $lang ?>" lang="<?= $lang?>">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-language" content="<?= $lang ?>" />
+
+	<title><?= $title ?></title>
+	
+	<?php if (isset($description) && $description): ?>
+	<meta name="description" content="<?= $description ?>" />
+	<meta name="keywords" content="<?= $keywords ?>" />
+	<?php endif ?>
+
+	<link rel="stylesheet" type="text/css" href="<?= $base ?>files/page/main.css" />
+	<link rel="stylesheet" type="text/css" href="<?= $base ?>files/page/menu.css" />
+	<link rel="stylesheet" type="text/css" href="<?= $base ?>files/page/theme.css" />
+	<link rel="shortcut icon" type="image/x-icon" href="<?= $base ?>files/page/favicon.ico"/>
+</head>
+<body>
+<div id="wrapper">
+	<div id="header">
+		<?php if ($this->menu) $this->menu->printView(); ?>
+		<div id="lang_switch">
+		<?php if ($lang_switch) : foreach ($lang_switch as $l) : ?>
+			<a href="<?= $l['link'] ?>"><?= $l['name'] ?></a>
+		<?php endforeach; endif ?>
+		</div>
+	</div>
+	
+	<div id="content">
+		<div id="msg_box">
+		<?php foreach($messages as $msg) : ?>
+			<div class="msg"><?= $msg ?></div>
+		<?php endforeach ?>
+		</div>
+
+		<?php if ($this->controller) $this->controller->printView(); ?>
+	</div>
+</div>
+</body>
+</html>

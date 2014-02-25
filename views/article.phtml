@@ -1,0 +1,23 @@
+<?php
+/**
+ * Yet another simple CMS
+ *
+ * @copyright 2014 Jakub Kaderka
+ * @license GNU General Public License, version 2; see LICENSE.txt
+ */
+
+//no direct access
+defined("IN_CMS") or die("Unauthorized access");
+?>
+
+<div id="article">
+	<div id="ar_head">
+		<h1 id="ar_title"><?= $title ?></h1>
+		<div id="ar_info"><?= $date ?></div>
+		<div id="ar_desc"><?= $description ?></div>
+	</div>
+	<div id ="ar_content">
+		<?= $content ?>
+	</div>
+</div>
+<?php $this->comments->printView() ?>

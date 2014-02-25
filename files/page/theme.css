@@ -1,0 +1,95 @@
+/* --------------------------------------
+* Yet another simple CMS
+*
+* Page colors - Theme
+* --------------------------------------
+* Jakub Kaderka <jakub.kaderka@gmail.com>
+* 2013
+* --------------------------------------
+*/
+
+/* ************************************************************
+* Parts of page
+************************************************************* */
+body {
+	font-family: Georgia,'New York CE',utopia,serif;
+	font-size: 13pt;
+	line-height: 130%;
+	color: #000000;
+
+	background-image: url("background.gif");
+	background-color: #CCCCCC;
+}
+
+#wrapper {
+	margin-left: 5%;
+	margin-right: 5%;
+
+	border: 1px solid gray;
+}
+
+#header {
+	background-color: gainsboro;
+}
+
+#header img {
+	display: block;
+	border-bottom: 1px solid gray;
+}
+
+#content {
+	padding: 4px;
+	background-color: #FFFFFF;
+	border-color: gray;
+}
+
+#footer {
+	text-align: center;
+}
+
+/* ************************************************************
+* Page menu
+************************************************************* */
+#menu {
+	font-size: 10pt;
+	line-height: 90%;
+	color: #000000;
+}
+
+#menu, #menu li ul {
+	background-color: gainsboro;
+}
+.menu_a {
+	border-color: gainsboro;
+	font-weight: bold;
+}
+
+#menu li:hover .menu_a, #menu li ul {
+	border-color: gray;
+}
+
+#menu a {
+	color: black;
+}
+
+#menu li ul li {
+	border-color: silver;
+}
+
+#menu li ul li a:hover {
+	background-color: LightGrey;
+}
+
+/* ************************************************************
+* Content
+************************************************************* */
+#paging_nav {
+	text-align: center;
+}
+
+.err_msg {
+	text-align: center;
+	padding: 9px;
+	color: red;      
+	font-size: 150%;
+}
