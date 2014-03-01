@@ -96,6 +96,21 @@ class Db
 	}
 
 	/**
+	 * Update table
+	 *
+	 * @param string $table table to update
+	 * @param array $where associative array, keys are column names, values are compared as equal
+	 * @param array $params associative array, keys are column names, its values data to insert
+	 *
+	 * @return int rows affected
+	 */
+	public static function update($table, $where = array(), $params = array()) {
+		self::_genQuery("UPDATE `$table` SET `".implode("`=?,`", array_keys($params))."`=? WHERE `".
+			implode("`=?,`", array_keys($where))."`=?", array_merge($params, array_values($where)));
+		return self::rowsAffected();
+	}
+
+	/**
 	 * Get number of rows in result
 	 *
 	 * @return int number of rows
