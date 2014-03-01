@@ -61,6 +61,15 @@ class Url
 
 		return $link;
 	}
+
+	/**
+	 * Get url to current page
+	 */
+	public static function getSelf() {
+		$url = self::getBase();
+		$url .= substr($_SERVER['REQUEST_URI'], strlen(dirname($_SERVER['SCRIPT_NAME'])));
+		return $url;
+	}
 	
 	/**
 	 * Generate local link
