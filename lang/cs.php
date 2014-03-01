@@ -17,8 +17,6 @@ $locale = array(
 $lang = array(
 		'DATABASE_CON_ERR'	=> "Došlo k chybě, nemohu se připojit k databázi.",
 		'UNEXCEPTED_ERR'	=> "Došlo k nečekané chybě, událost byla zaznamenána.<br/>",
-		'ERR_SOLUTION'		=> "Zkuste stránku znovu načíst, nebo navšivte <a href='./'>úvodní stránku</a><br/>Pokud potže přetrvávají,
-						kontaktuje <a href='mailto:".ADMIN_MAIL."'>administátora</а>.",
 		'NO_CATEGORY'		=> "Požadovaná kategorie neexistuje",
 		'CATEGORY_EMPTY'	=> "Kategorie neobsahuje žádný článek",
 		'NO_ARTICLE' 		=> "Požadovaný článek neexistuje.",
@@ -28,6 +26,7 @@ $lang = array(
 		'TITLE_NOT_FOUND'	=> "Stránka nenalezena",
 		'TITLE_ADD_COM'		=> "Přidat komentář",
 		'TITLE_ERROR'		=> "Chyba",
+		'TITLE_ADMIN'		=> "Administrace",
 
 		'NICKNAME'		=> "Přezdívka",
 		'COMMENT'		=> "Komentář",
@@ -43,4 +42,26 @@ $lang = array(
 		'COMMENT_SEND'		=> "Komentář byl odeslán",
 		'COMMENTS_NOT_ALLOWED'	=> "U tohoto článku není přidávání komentářů dovoleno",
 		'UNABLE_ADD_COM'	=> "Komentář nelze odeslat, zkuste to prosím za chvíli",
+
+		'USERNAME'		=> "Uživatelské jméno",
+		'PASS'			=> "Heslo",
+		'ADMIN_LOGIN'		=> "Přihlášení do administrace",
+		'WRONG_LOGIN'		=> "Uživatelské jméno nebo heslo není správně",
+		'EDIT_ARTICLE'		=> "Editace článku",
+		'EDIT_TITLE'		=> "Titulek",
+		'EDIT_DESCRIPTION'	=> "Popis",
+		'EDIT_KEYWORDS'		=> "Klíčová slova",
+		'EDIT_CONTENT'		=> "Obsah",
+		'YES'			=> "Ano",
+		'NO'			=> "Ne",
+		'CONFIRM_DELETE'	=> "Potvrdit smazání",
+		'ARTICLE_DELETE'	=> "Smazat článek: %s",
+		'CATEGORY'		=> "Kategorie",
+
+		'TITLE_LONG'		=> "Titulek je příliš dlouhý, maximální délka je ".TITLE_LENGTH,
+		'DESCRIPTION_LONG'	=> "Popis přílíš dlouhý, maximální délka je ".DESC_LENGTH,
+		'KEYWORDS_LONG'		=> "Klíčová slova příliš dlouhá, maximální délka je ".KEYWORDS_LENGTH,
+		'SAVED'			=> "Uloženo",
+		'DB_UNABLE_SAVE'	=> "Článek se nepodařilo uložit",
+		'ARTICLE_DELETED'	=> "Článek smazán",
 );

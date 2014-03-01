@@ -29,12 +29,14 @@ function class_autoload($name)
 spl_autoload_register("class_autoload");
 
 require_once "config.php";
+require_once "define.php";
 
 //set timezone
 if (date_default_timezone_set(TIMEZONE) == false) {
 	date_default_timezone_set("UTC");
 	Logging::warning("UTC timezone used");
 }
+
 
 //get part of url after current dir
 $url = substr($_SERVER['REQUEST_URI'], strlen(dirname($_SERVER['SCRIPT_NAME'])));

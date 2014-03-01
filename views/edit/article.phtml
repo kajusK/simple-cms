@@ -1,0 +1,38 @@
+<?php
+/**
+ * Yet another simple CMS
+ *
+ * @copyright 2014 Jakub Kaderka
+ * @license GNU General Public License, version 2; see LICENSE.txt
+ */
+
+//no direct access
+defined("IN_CMS") or die("Unauthorized access");
+?>
+<h1><?= $article_edit ?></h1>
+
+<form id="edit_article" method="post" action="">
+<div>
+	<b><?= $article_name ?>:</b><br/>
+	<input type="text" name="name" value="<?= $name ?>"/><br/>
+
+	<b><?= $article_description ?>:</b><br/>
+	<input type="text" name="description" value="<?= $description ?>"/><br/>
+
+	<b><?= $article_keywords ?>:</b><br/>
+	<input type="text" name="keywords" value="<?= $keywords ?>"/><br/>
+
+	<b><?= $article_category ?>:</b>
+	<select name="category">
+		<?php foreach ($category as $c): ?>
+		<option value="<?= $c['id'] ?>"<?php if ($c['id'] == $cat_id) : ?> selected=""<?php endif ?>><?= $c['name'] ?></option>
+		<?php endforeach ?>
+	</select>
+	<hr/>
+
+	<b><?= $article_content ?>:</b><br/>
+	<textarea name="content" cols="100" rows="20"><?= $content ?></textarea><br/>
+
+	<input type="submit" value="<?= $send ?>"/>
+</div>
+</form>

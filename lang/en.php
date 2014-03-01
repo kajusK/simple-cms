@@ -17,8 +17,6 @@ $locale = array(
 $lang = array(
 		'DATABASE_CON_ERR'	=> "An error occured, unable to connect to database.",
 		'UNEXCEPTED_ERR'	=> "An unexpected error occured.<br/>",
-		'ERR_SOLUTION'		=> "Try to reload page, or visit <a href='./'>index page</a><br/>. If it still doesn't work,
-						contact <a href='mailto:".ADMIN_MAIL."'>admin</а>.",
 		'NO_CATEGORY'		=> "Required category doesn't exist",
 		'CATEGORY_EMPTY'	=> "Requied category doesn't contain any articles",
 		'NO_ARTICLE'		=> "Required article doesn't exist.",
@@ -28,6 +26,7 @@ $lang = array(
 		'TITLE_NOT_FOUND'	=> "Page not found",
 		'TITLE_ADD_COM'		=> "Add comment",
 		'TITLE_ERROR'		=> "Error",
+		'TITLE_ADMIN'		=> "Administration",
 
 		'NICKNAME'		=> "Nickname",
 		'COMMENT'		=> "Comment",
@@ -43,4 +42,26 @@ $lang = array(
 		'COMMENT_SEND'		=> "Your comment has been sent",
 		'COMMENTS_NOT_ALLOWED'	=> "Adding new comments for this article isn't permitted",
 		'UNABLE_ADD_COM'	=> "Unable to send the comment, try it later",
+
+		'USERNAME'		=> "Username",
+		'PASS'			=> "Password",
+		'ADMIN_LOGIN'		=> "Administration login",
+		'WRONG_LOGIN'		=> "Username or password is incorrect",
+		'EDIT_ARTICLE'		=> "Edit article",
+		'EDIT_TITLE'		=> "Title",
+		'EDIT_DESCRIPTION'	=> "Description",
+		'EDIT_KEYWORDS'		=> "Keywords",
+		'EDIT_CONTENT'		=> "Content",
+		'YES'			=> "Yes",
+		'NO'			=> "No",
+		'CONFIRM_DELETE'	=> "Confirm",
+		'ARTICLE_DELETE'	=> "Delete article: %s",
+		'CATEGORY'		=> "Category",
+
+		'TITLE_LONG'		=> "Title too long, maximal length is ".TITLE_LENGTH,
+		'DESCRIPTION_LONG'	=> "Description too long, maximal length is ".DESC_LENGTH,
+		'KEYWORDS_LONG'		=> "Keywords too long, maximal length is ".KEYWORDS_LENGTH,
+		'SAVED'			=> "Saved",
+		'DB_UNABLE_SAVE'	=> "Unable to save this article",
+		'ARTICLE_DELETED'	=> "Article deleted",
 );

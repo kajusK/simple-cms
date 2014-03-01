@@ -1,0 +1,28 @@
+<?php
+/**
+ * Yet another simple CMS
+ *
+ * @copyright 2014 Jakub Kaderka
+ * @license GNU General Public License, version 2; see LICENSE.txt
+ */
+
+//no direct access
+defined("IN_CMS") or die("Unauthorized access");
+?>
+<h1><?= $article_delete ?></h1>
+
+<form id="edit_delete" method="post" action="">
+<div>
+	<b><?= $confirm ?></b>
+	<select name="delete">
+		<option value="no"><?= $no ?> </option>
+		<option value="no"><?= $no ?> </option>
+		<option value="no"><?= $no ?> </option>
+		<option value="yes"><?= $yes ?> </option>
+		<option value="no"><?= $no ?> </option>
+		<option value="no"><?= $no ?> </option>
+	</select>
+
+	<input type="submit" value="<?= $send ?>"/>
+</div>
+</form>

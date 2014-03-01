@@ -39,6 +39,20 @@ class Article
 	}
 
 	/**
+	 * Get category of given article
+	 *
+	 * @param int $id article id
+	 * @return mixed false or category id
+	 */
+	public function getCategory($id) {
+		$ret = Db::queryRow("SELECT menu_id FROM articles WHERE id=?", array($id));
+		if (!$ret)
+			return false;
+
+		return $ret['menu_id'];
+	}
+
+	/**
 	 * Does this article exists?
 	 *
 	 * @param int $id article id
@@ -96,7 +110,7 @@ class Article
 				  FROM articles_".Lang::getLang()." AS l JOIN articles AS a ON
 				  l.id=a.id $where ORDER BY a.id DESC LIMIT ?, ?", array($from, $items));
 	}
-	
+
 	/**
 	 * Count articles
 	 *
@@ -116,6 +130,96 @@ class Article
 		if (!$ret)
 			return false;
 		return $ret['COUNT(*)'];
+	}
+
+	/**
+	 * Modify article
+	 *
+	 * @param int $id
+	 * @param string $name
+	 * @param string $description
+	 * @param string $keywords
+	 * @param string $content
+	 * @param int $category
+	 *
+	 * @return boolean true if succeed
+	 */
+	public function modify($id, $name, $description, $keywords, $content, $category) {
+		if (!self::exists($id)) {
+			Message::add(Lang::get("NO_ARTICLE"));
+			return false;
+		}
+
+		if (!self::_check($name, $description, $keywords))
+			return false;
+
+		//I'd like to check return value, but if data are the same, it returns 0, so it's a problem
+		Db::update("articles_".Lang::getLang(), array('id' => $id), array('title' => $name,
+					'description' => $description,
+					'keywords' => $keywords,
+					'content' => $content));
+
+		//same problem
+		Db::update("articles", array('id' => $id), array('menu_id' => $category,
+					'date_modified' => date ('Y-m-d H:m')));
+
+		Message::add(Lang::get("SAVED"));
+		return true;
+	}
+
+	public function add($name, $description, $keywords, $content, $category) {
+		if (!self::_check($name, $description, $keywords))
+			return false;
+
+		$url = htmlspecialchars($name);
+		//regular expression TODO:
+		if (strlen($url) > URL_LENGTH)
+			$url = substr($url, 0, URL_LENGTH);
+
+		$affected = Db::insert("articles", array('menu_id' => $category));
+		if (!$affected) {
+			Message::add(Lang::get("DB_UNABLE_SAVE"));
+			return false;
+		}
+
+		$id = Db::queryRow("SELECT id FROM articles ORDER BY id DESC LIMIT 1");
+		if ($id == false) {
+			Message::add(Lang::get("DB_UNABLE_SAVE"));
+			//TODO should delete last row, but how?
+			return false;
+		}
+		$id = $id['id'];
+
+		$affected = Db::insert("articles_".Lang::getLang(), array('id' => $id,
+					'url' => $url,
+					'title' => $name,
+					'description' => $description,
+					'keywords' => $keywords,
+					'content' => $content));
+		if (!$affected) {
+			Message::add(Lang::get("DB_UNABLE_SAVE"));
+			return false;
+		}
+
+		Message::add(Lang::get("SAVED"));
+		return true;
+	}
+
+	/**
+	 * Delete article from database
+	 */
+	public function remove($id) {
+		if (!self::exists($id)) {
+			Message::add(Lang::get("NO_ARTICLE"));
+			return false;
+		}
+
+		Db::remove("articles_".Lang::getLang(), array('id' => $id));
+		if (!self::translAvailable($id))
+			Db::remove("articles", array('id' => $id));
+
+		Message::add("ARTICLE_DELETED");
+		return true;
 	}
 
 	/**
@@ -149,5 +253,31 @@ class Article
 			return $n;
 		}
 		return false;
+	}
+
+	/**
+	 * Check variables to add them to database
+	 *
+	 * @param string $name
+	 * @param string $description
+	 * @param string $keywords
+	 * @return boolean true if correct
+	 */
+	private function _check($name, $description, $keywords) {
+		$err = true;
+		if (strlen($name) > TITLE_LENGTH) {
+			Message::add(Lang::get("TITLE_LONG"));
+			$err = false;
+		}
+		if (strlen($description) > DESC_LENGTH) {
+			Message::add(Lang::get("DESCRIPTION_LONG"));
+			$err = false;
+		}
+		if (strlen($keywords) > KEYWORDS_LENGTH) {
+			Message::add(Lang::get("KEYWORDS_LONG"));
+			$err = false;
+		}
+
+		return $err;
 	}
 }

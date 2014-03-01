@@ -40,6 +40,21 @@ class Menu
 		return $menu;
 	}
 
+	/**
+	 * Get all menu items
+	 *
+	 * @return mixed array of items or false
+	 */
+	public function getRaw() {
+		return Db::query("SELECT name_".Lang::getLang()." AS name, id FROM menu");
+	}
+
+	/**
+	 * Get name of given category
+	 *
+	 * @param int $id category id
+	 * @return mixed string or false
+	 */
 	public function getName($id) {
 		$res = Db::queryRow("SELECT name_".Lang::getLang()." AS name FROM
 				  menu  WHERE id=?", array($id));

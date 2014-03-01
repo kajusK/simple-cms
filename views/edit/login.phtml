@@ -1,0 +1,22 @@
+<?php
+/**
+ * Yet another simple CMS
+ *
+ * @copyright 2014 Jakub Kaderka
+ * @license GNU General Public License, version 2; see LICENSE.txt
+ */
+
+//no direct access
+defined("IN_CMS") or die("Unauthorized access");
+?>
+<h1><?= $admin_login ?></h1>
+
+<form id="login_form" action="" method="post">
+<div>
+	<b><?= $username ?>:</b><br/>
+	<input type="text" name="name" value="<?= $name?>"/><br/>
+	<b><?= $pass ?>:</b><br/>
+	<input type="password" name="pass"/><br/>
+	<input type="submit" value="<?= $send ?>"/>
+</div>
+</form>
