@@ -45,7 +45,7 @@ class RouterController extends Controller
 			return;
 		}
 		register_shutdown_function("Db::close");
-	
+
 		$this->menu = new MenuController();
 		$this->data['lang_switch'] = $this->_langSwitch($url);
 
@@ -70,7 +70,7 @@ class RouterController extends Controller
 		$langs = Lang::getList();
 		if ($langs === false)
 			return false;
-	
+
 		/* just in case somebody would play with urls */
 		foreach ($param as & $p)
 			$p = str_replace("%", "%%", $p);
@@ -103,7 +103,7 @@ class RouterController extends Controller
 		if (is_numeric($param[0])) {
 			$this->controller = new ArticleController($param);
 			return true;
-		} 
+		}
 		/* load given controller */
 		$contClass = ucfirst(array_shift($param))."Controller";
 		if (!is_file("controllers/$contClass.php") ||
