@@ -32,7 +32,7 @@ abstract class Controller
 	public function printView() {
 		if (!$this->view)
 			return;
-		
+
 		$this->data['base'] = Url::getBase()."/";
 		extract($this->data);
 		require "views/".$this->view.".phtml";
@@ -62,6 +62,9 @@ abstract class Controller
 		switch ($code){
 		case 301:
 			$string = "301 Moved Permanently";
+			break;
+		case 401:
+			$string = "401 Unauthorized";
 			break;
 		case 404:
 			$string = "404 Not Found";
