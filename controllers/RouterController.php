@@ -50,9 +50,7 @@ class RouterController extends Controller
 		$this->data['lang_switch'] = $this->_langSwitch($url);
 
 		if ($this->_route($url)) {
-			$this->data['title'] = $this->controller->head['title'];
-			$this->data['description'] = $this->controller->head['description'];
-			$this->data['keywords'] = $this->controller->head['keywords'];
+			$this->data = array_merge($this->data, $this->controller->head);
 		} else {
 			$this->data['title'] = Lang::get("TITLE_NOT_FOUND");
 			Message::add(Lang::get("NOT_FOUND"));
