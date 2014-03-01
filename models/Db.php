@@ -111,6 +111,19 @@ class Db
 	}
 
 	/**
+	 * Remove rows from table
+	 *
+	 * @param string $table table to delete from
+	 * @param array $where associative array, keys are column names, values are compared as equal
+	 * @return int rows affected
+	 */
+	public static function remove($table, $where = array()) {
+		self::_genQuery("DELETE FROM $table WHERE `".
+			implode("`=?,`", array_keys($where))."`=?", $where);
+		return self::rowsAffected();
+	}
+
+	/**
 	 * Get number of rows in result
 	 *
 	 * @return int number of rows
