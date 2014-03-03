@@ -28,12 +28,12 @@ class RouterController extends Controller
 			unset($url['lang']);
 		} else {
 			Lang::setLang();
-			/*
+			/* no language in url, redirect to correct url */
 			if (count($url) != 0) {
 				$this->statusCode(301);
-				$this->redirect(Url::get("article", $res['id'], $res['url']), 0);
+				$link = call_user_func_array("Url::get", $url);
+				$this->redirect($link, 0);
 			}
-			*/
 		}
 		$this->data['lang'] = Lang::getLang();
 
