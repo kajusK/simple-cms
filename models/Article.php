@@ -153,8 +153,10 @@ class Article
 		if (!self::_check($name, $description, $keywords))
 			return false;
 
+		$url = self::_prepareLink($name);
 		//I'd like to check return value, but if data are the same, it returns 0, so it's a problem
 		Db::update("articles_".Lang::getLang(), array('id' => $id), array('title' => $name,
+					'url' => $url,
 					'description' => $description,
 					'keywords' => $keywords,
 					'content' => $content));
@@ -167,14 +169,22 @@ class Article
 		return true;
 	}
 
+	/**
+	 * Add new article
+	 *
+	 * @param string $name
+	 * @param string $description
+	 * @param string $keywords
+	 * @param string $content
+	 * @param int $category
+	 *
+	 * @return boolean true if succeed
+	 */
 	public function add($name, $description, $keywords, $content, $category) {
 		if (!self::_check($name, $description, $keywords))
 			return false;
 
-		$url = htmlspecialchars($name);
-		//regular expression TODO:
-		if (strlen($url) > URL_LENGTH)
-			$url = substr($url, 0, URL_LENGTH);
+		$url = self::_prepareLink($name);
 
 		$affected = Db::insert("articles", array('menu_id' => $category));
 		if (!$affected) {
@@ -279,5 +289,31 @@ class Article
 		}
 
 		return $err;
+	}
+
+	/**
+	 * Prepare link to add to database
+	 *
+	 * Delete all non alphanumeric characters and replace spaces with _
+	 *
+	 * @param string $string
+	 * @return mixed NULL or string
+	 */
+	private function _prepareLink($string) {
+		$text = self::_strtr_utf8($string, 'áäčďéěëíµňôóöŕřšťúůüýžÁÄČĎÉĚËÍĄŇÓÖÔŘŔŠŤÚŮÜÝŽ', 'aacdeeeilnooorrstuuuyzaacdeeelinooorrstuuuyz');
+		$text = preg_replace("/[^a-zA-z0-9\s]/", "", $text);
+		return preg_replace("/[^a-zA-Z0-9]/", "_", $text);
+	}
+
+	/**
+	 * Strtr utf8 function found somewhere on the internet
+	 */
+	private function _strtr_utf8($str, $from, $to) {
+		$keys = array();
+		$values = array();
+		preg_match_all('/./u', $from, $keys);
+		preg_match_all('/./u', $to, $values);
+		$mapping = array_combine($keys[0], $values[0]);
+		return strtr($str, $mapping);
 	}
 }
