@@ -111,7 +111,12 @@ class RouterController extends Controller
 			return false;
 		}
 
-		$this->controller = new $contClass($param);
+		/* avoid loading controller without title set */
+		$tmp = new $contClass($param);
+		if (!isset($tmp->head['title']))
+			return false;
+
+		$this->controller = $tmp;
 		return true;
 	}
 
