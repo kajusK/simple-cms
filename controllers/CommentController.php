@@ -19,12 +19,12 @@ class CommentController extends Controller
 	 *		else check for mode (add...)
 	 */
 	public function __construct($param) {
-		if (is_numeric($param[0]) && count($param) == 1) {
+		if (count($param) == 1 && is_numeric($param[0])) {
 			$this->_show($param[0]);
 			return;
 		}
 
-		if ($param[0] == "add" && count($param) == 2) {
+		if (count($param) == 2 && $param[0] == "add") {
 			$this->_add($param[1]);
 			return;
 		}
