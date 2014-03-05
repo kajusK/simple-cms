@@ -228,7 +228,7 @@ class Article
 		if (!self::translAvailable($id))
 			Db::remove("articles", array('id' => $id));
 
-		Message::add("ARTICLE_DELETED");
+		Message::add(Lang::get("ARTICLE_DELETED"));
 		return true;
 	}
 
