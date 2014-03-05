@@ -10,30 +10,23 @@
 defined("IN_CMS") or die("Unauthorized access");
 
 /**
- * Articles administration, requires login
+ * Articles administration
  */
-class EditController extends Controller
+class AdminArticleController extends Controller
 {
 
 	/**
-	 * @param mixed $param [logout/add/modify/delete][id]
+	 * @param array $param add/modify/delete id
 	 */
 	public function __construct($param)
 	{
-		$this->head['title'] = Lang::get("TITLE_ADMIN");
-		if (!Login::isLogged() && !$this->_login($param))
-			return;
-
 		if (count($param) == 0) {
 			$this->_notFound();
 			return;
 		}
 
-		switch ($param[0]) {
-		case "logout":
-			Login::logout();
-			$this->redirect(Url::get("edit"));
-			break;
+		$action = array_shift($param);
+		switch ($action) {
 		case "add":
 			$this->_add($param);
 			break;
@@ -50,42 +43,18 @@ class EditController extends Controller
 
 	}
 
-	/**
-	 * Login user
-	 *
-	 * @param mixed $param array of controller parameters
-	 */
-	private function _login($param) {
-		if (count($param) != 0)
-			$this->statusCode(401);
-
-		$this->view = "edit/login";
-		$this->data = array('username' => Lang::get("USERNAME"),
-				'pass' => Lang::get("PASS"),
-				'send' => Lang::get("SEND"),
-				'action' => Url::get("edit"),
-				'admin_login' => Lang::get("ADMIN_LOGIN"),
-				'name' => "");
-
-		if (!isset($_POST['name']))
-			return false;
-
-		$this->data['name'] = $_POST['name'];
-		if (Login::create($_POST['name'], $_POST['pass']))
-			$this->redirect(Url::getSelf());
-	}
 
 	/**
 	 * Modify article of given id
 	 *
-	 * @param mixed $param count must be 2 and second must be article id
+	 * @param array $param article_id
 	 */
 	private function _modify($param) {
-		if (count($param) != 2 || !is_numeric($param[1])) {
+		if (count($param) != 1 || !is_numeric($param[0])) {
 			$this->_notFound();
 			return;
 		}
-		$id = $param[1];
+		$id = $param[0];
 
 		$this->_articleCommon(Article::getCategory($id));
 
@@ -112,10 +81,10 @@ class EditController extends Controller
 	/**
 	 * Add new article
 	 *
-	 * @param mixed $param count must be 1
+	 * @param array $param must be empty
 	 */
 	private function _add($param) {
-		if (count($param) != 1) {
+		if (count($param) != 0) {
 			$this->_notFound();
 			return;
 		}
@@ -139,16 +108,16 @@ class EditController extends Controller
 	/**
 	 * Delete article
 	 *
-	 * @param mixed $param count must be 2 and second must be article id
+	 * @param array $param article_id
 	 */
 	private function _delete($param) {
-		if (count($param) != 2 || !is_numeric($param[1])) {
+		if (count($param) != 1 || !is_numeric($param[0])) {
 			$this->_notFound();
 			return;
 		}
 
-		$this->view = "edit/delete";
-		$id = $param[1];
+		$this->view = "admin/delete";
+		$id = $param[0];
 
 		$name = Article::getName($id);
 		if (!$name) {
@@ -163,7 +132,7 @@ class EditController extends Controller
 				'send' => Lang::get("SEND"));
 
 		if (isset($_POST['delete']) && $_POST['delete'] == "yes") {
-			if (Article::remove($param[1])) {
+			if (Article::remove($id)) {
 				$this->view = false;
 				$this->redirect(Url::get(false), 2);
 			}
@@ -177,7 +146,7 @@ class EditController extends Controller
 	 * @param int $cat category to be marked as selected
 	 */
 	private function _articleCommon($cat_id = false) {
-		$this->view = "edit/article";
+		$this->view = "admin/article";
 		$this->data = array('article_edit' => Lang::get("EDIT_ARTICLE"),
 				'article_name' => Lang::get("EDIT_TITLE"),
 				'article_description' => Lang::get("EDIT_DESCRIPTION"),
