@@ -20,10 +20,21 @@ function class_autoload($name)
 {
 	$length = strlen($name) - strlen("Controller");
 
-	if ($length >= 0 && (strpos($name, "Controller", $length) !== FALSE))
-		require "controllers/$name.php";
-	else
+	if ($length < 0 || (strpos($name, "Controller", $length) === FALSE)) {
 		require "models/$name.php";
+		return;
+	}
+
+	if (is_file("controllers/$name.php")) {
+		require "controllers/$name.php";
+		return;
+	}
+
+	//locate subdirectory
+	$dir = preg_split('/(?=[A-Z])/', $name, -1, PREG_SPLIT_NO_EMPTY);
+	$dir = lcfirst($dir[0]);
+
+	require "controllers/$dir/$name.php";
 }
 
 spl_autoload_register("class_autoload");
