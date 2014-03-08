@@ -42,6 +42,7 @@ $lang = array(
 		'COMMENT_SEND'		=> "Komentář byl odeslán",
 		'COMMENTS_NOT_ALLOWED'	=> "U tohoto článku není přidávání komentářů dovoleno",
 		'UNABLE_ADD_COM'	=> "Komentář nelze odeslat, zkuste to prosím za chvíli",
+		'CANT_NICK_ADMIN'	=> "Tuto přezdívku nelze použít, je vyhrazena vlastníkovi stránky",
 
 		'USERNAME'		=> "Uživatelské jméno",
 		'PASS'			=> "Heslo",

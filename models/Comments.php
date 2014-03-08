@@ -73,6 +73,11 @@ class Comments
 			$err = true;
 		}
 
+		if ($nick == ADMIN_USER && !Login::isLogged()) {
+			Message::add(Lang::get("CANT_NICK_ADMIN"));
+			$err = true;
+		}
+
 		if ($err)
 			return false;
 

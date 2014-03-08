@@ -42,6 +42,7 @@ $lang = array(
 		'COMMENT_SEND'		=> "Your comment has been sent",
 		'COMMENTS_NOT_ALLOWED'	=> "Adding new comments for this article isn't permitted",
 		'UNABLE_ADD_COM'	=> "Unable to send the comment, try it later",
+		'CANT_NICK_ADMIN'	=> "This nickname is reserved for page owner, please choose different",
 
 		'USERNAME'		=> "Username",
 		'PASS'			=> "Password",
