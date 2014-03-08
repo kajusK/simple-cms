@@ -97,6 +97,7 @@ class Comments
 	/**
 	 * Are comments allowed
 	 *
+	 * @param int $article_id
 	 * @return int 1 adding allowed and visible
 	 *		-1 if visible and adding not allowed
 	 *		false elsewhere
@@ -112,5 +113,30 @@ class Comments
 			return -1;
 
 		return false;
+	}
+
+	/**
+	 * Set comments permission for given article
+	 *
+	 * @param int $article_id
+	 * @param int $permission 1 adding allowed and visible
+	 *			 -1 adding not allowed and visible
+	 *			 anything else - comments not permitted
+	 * @return boolean
+	 */
+	public function setPermissions($article_id, $permission) {
+		$params = array('com_allowed' => true, 'com_show' => true);
+		if ($permission == -1) {
+			$params['com_allowed'] = false;
+		}
+		else if ($permission != 1) {
+			$params['com_allowed'] = false;
+			$params['com_show'] = false;
+		}
+
+		if (!Db::update("articles", array('id' => $article_id), $params))
+			return false;
+		return true;
+
 	}
 }

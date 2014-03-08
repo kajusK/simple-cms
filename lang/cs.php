@@ -65,4 +65,8 @@ $lang = array(
 		'SAVED'			=> "Uloženo",
 		'DB_UNABLE_SAVE'	=> "Článek se nepodařilo uložit",
 		'ARTICLE_DELETED'	=> "Článek smazán",
+		'COM_ADDING_ALLOWED'	=> "Přidávání povoleno",
+		'COM_ADDING_DISABLED'	=> "Přidávání zakázáno",
+		'COM_DISABLED'		=> "Zakázány",
+		'COM_SETTINGS'		=> "Komentáře",
 );

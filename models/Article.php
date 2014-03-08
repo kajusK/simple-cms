@@ -177,10 +177,11 @@ class Article
 	 * @param string $keywords
 	 * @param string $content
 	 * @param int $category
+	 * @param int $permissions for comments (@see Comments::setPermissions)
 	 *
 	 * @return boolean true if succeed
 	 */
-	public function add($name, $description, $keywords, $content, $category) {
+	public function add($name, $description, $keywords, $content, $category, $permissions) {
 		if (!self::_check($name, $description, $keywords))
 			return false;
 
@@ -210,6 +211,8 @@ class Article
 			Message::add(Lang::get("DB_UNABLE_SAVE"));
 			return false;
 		}
+		
+		Comments::setPermissions($id, $permissions);
 
 		Message::add(Lang::get("SAVED"));
 		return true;

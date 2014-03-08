@@ -56,12 +56,13 @@ class AdminArticleController extends Controller
 		}
 		$id = $param[0];
 
-		$this->_articleCommon(Article::getCategory($id));
+		$this->_articleCommon(Article::getCategory($id), Comments::allowed($id));
 
 		if (isset($_POST['name'])) {
 			if (Article::modify($id, $_POST['name'], $_POST['description'], $_POST['keywords'], $_POST['content'], $_POST['category'])) {
+				Comments::setPermissions($id, $_POST['comments']);
 				$this->view = false;
-				$this->redirect(Url::get(false), 2);
+				$this->redirect(Url::get("article", $id), 2);
 			}
 			return;
 		}
@@ -92,7 +93,8 @@ class AdminArticleController extends Controller
 		$this->_articleCommon();
 
 		if (isset($_POST['name'])) {
-			if (Article::add($_POST['name'], $_POST['description'], $_POST['keywords'], $_POST['content'], $_POST['category'])) {
+			if (Article::add($_POST['name'], $_POST['description'], $_POST['keywords'], $_POST['content'],
+			    $_POST['category'], $_POST['comments'])) {
 				$this->view = false;
 				$this->redirect(Url::get(false), 2);
 			}
@@ -144,8 +146,9 @@ class AdminArticleController extends Controller
 	 * Common method for article modify and add
 	 *
 	 * @param int $cat category to be marked as selected
+	 * @param int $com_selected comment settings to be marked as selected
 	 */
-	private function _articleCommon($cat_id = false) {
+	private function _articleCommon($cat_id = false, $com_selected = 1) {
 		$this->view = "admin/article";
 		$this->data = array('article_edit' => Lang::get("EDIT_ARTICLE"),
 				'article_name' => Lang::get("EDIT_TITLE"),
@@ -153,7 +156,12 @@ class AdminArticleController extends Controller
 				'article_keywords' => Lang::get("EDIT_KEYWORDS"),
 				'article_category' => Lang::get("CATEGORY"),
 				'article_content' => Lang::get("EDIT_CONTENT"),
-				'send' => Lang::get("SEND"));
+				'send' => Lang::get("SEND"),
+				'adding_allowed' => Lang::get("COM_ADDING_ALLOWED"),
+				'adding_disabled' => Lang::get("COM_ADDING_DISABLED"),
+				'comments_disabled' => Lang::get("COM_DISABLED"),
+				'com_settings' => Lang::get("COM_SETTINGS"),
+				'com_selected' => $com_selected);
 
 		if (isset($_POST['name'])) {
 			$this->data['name'] = $_POST['name'];
@@ -161,6 +169,7 @@ class AdminArticleController extends Controller
 			$this->data['keywords'] = $_POST['keywords'];
 			$this->data['content'] = $_POST['content'];
 			$this->data['cat_id'] = $_POST['category'];
+			$this->data['com_selected'] = $_POST['comments'];
 		} else {
 			$this->data['cat_id'] = $cat_id ? $cat_id : -1;
 		}

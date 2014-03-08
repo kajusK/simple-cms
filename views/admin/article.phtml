@@ -28,6 +28,13 @@ defined("IN_CMS") or die("Unauthorized access");
 		<option value="<?= $c['id'] ?>"<?php if ($c['id'] == $cat_id) : ?> selected=""<?php endif ?>><?= $c['name'] ?></option>
 		<?php endforeach ?>
 	</select>
+	
+	<b><?= $com_settings ?>:</b>
+	<select name="comments">
+		<option value="1" <?php if ($com_selected == 1) : ?> selected=""<?php endif ?>><?= $adding_allowed ?></option>
+		<option value="-1" <?php if ($com_selected == -1) : ?> selected=""<?php endif ?>><?= $adding_disabled ?></option>
+		<option value="0" <?php if (!$com_selected) : ?> selected=""<?php endif ?>><?= $comments_disabled ?></option>
+	</select>
 	<hr/>
 
 	<b><?= $article_content ?>:</b><br/>

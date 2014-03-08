@@ -65,4 +65,8 @@ $lang = array(
 		'SAVED'			=> "Saved",
 		'DB_UNABLE_SAVE'	=> "Unable to save this article",
 		'ARTICLE_DELETED'	=> "Article deleted",
+		'COM_ADDING_ALLOWED'	=> "Adding allowed",
+		'COM_ADDING_DISABLED'	=> "Adding disabled",
+		'COM_DISABLED'		=> "Disabled",
+		'COM_SETTINGS'		=> "Comments",
 );
