@@ -18,6 +18,9 @@ class Files
 	 * @param array $files files in $_FILES like structure (for multiple files!)
 	 */
 	public static function upload($dir, $files) {
+		if (!is_dir($dir) && !self::_createDir($dir))
+			return false;
+
 		for ($i = 0; $i < count($files['name']); $i++) {
 			if ($files['error'][$i] != 0)
 				continue;
@@ -76,5 +79,20 @@ class Files
 	 */
 	private static function _escapeName($file) {
 		return str_replace("/", "_", $file);
+	}
+
+	/**
+	 * Create dir if doesn't exist
+	 *
+	 * @param string $dir
+	 * @return boolean
+	 */
+	private static function _createDir($dir) {
+		if (is_file($dir))
+			return false;
+		if (is_dir($dir))
+			return true;
+
+		return mkdir($dir, 0777, true);
 	}
 }
