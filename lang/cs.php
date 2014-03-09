@@ -69,4 +69,10 @@ $lang = array(
 		'COM_ADDING_DISABLED'	=> "Přidávání zakázáno",
 		'COM_DISABLED'		=> "Zakázány",
 		'COM_SETTINGS'		=> "Komentáře",
+		'EDIT_FILES'		=> "Upravit soubory",
+		'UPLOAD_FILES'		=> "Nahrát soubory",
+		'FILENAME'		=> "Jméno",
+		'DELETE'		=> "Smazat",
+		'FILE_EXISTS'		=> "Soubor \"%s\" již existuje",
+		'UPLOAD_FINISHED'	=> "Nahrávání dokončeno",
 );

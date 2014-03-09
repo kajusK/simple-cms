@@ -1,0 +1,41 @@
+<?php
+/**
+ * Yet another simple CMS
+ *
+ * @copyright 2014 Jakub Kaderka
+ * @license GNU General Public License, version 2; see LICENSE.txt
+ */
+
+//no direct access
+defined("IN_CMS") or die("Unauthorized access");
+?>
+
+<h1><?= $files_edit ?></h1>
+<div id="edit_files">
+	<form action="" method="post" enctype="multipart/form-data">
+		<b><?= $upload ?>:</b>
+		<input type="file" name="upload[]" multiple="multiple"/>
+		<input type="hidden" name="upload" value="1"/>
+		<input type="submit" value="<?= $send ?>"/>
+	</form>
+
+	<?php if ($files) : ?>
+	<br/>
+	<form action="" method="post"><table>
+		<tr>
+			<td><?= $name ?></td>
+			<td><?= $delete ?></td>
+		</tr>
+		<?php foreach ($files as $f) :?>
+		<tr>
+			<td><?= $f ?></td>
+			<td><input type="checkbox" name="files[<?= $f ?>]"/></td>
+		</tr>
+		<?php endforeach ?>
+		<tr><td>
+			<input type="hidden" name="delete" value="1"/>
+			<input type="submit" value="<?= $send ?>"/>
+		</td></tr>
+	</form></table>
+	<?php endif ?>
+</div>

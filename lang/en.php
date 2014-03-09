@@ -69,4 +69,10 @@ $lang = array(
 		'COM_ADDING_DISABLED'	=> "Adding disabled",
 		'COM_DISABLED'		=> "Disabled",
 		'COM_SETTINGS'		=> "Comments",
+		'EDIT_FILES'		=> "Edit files",
+		'UPLOAD_FILES'		=> "Upload",
+		'FILENAME'		=> "Filename",
+		'DELETE'		=> "Delete",
+		'FILE_EXISTS'		=> "File \"%s\" already exists",
+		'UPLOAD_FINISHED'	=> "Uploading finished",
 );

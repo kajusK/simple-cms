@@ -42,6 +42,11 @@ class AdminController extends Controller
 		case "article":
 			$this->controller = new AdminArticleController($param);
 			break;
+		
+		case "files":
+			$this->controller = new AdminFilesController($param);
+			break;
+
 		default:
 			$this->_notFound();
 			break;
