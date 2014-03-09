@@ -30,8 +30,8 @@ class AdminArticleController extends Controller
 		case "add":
 			$this->_add($param);
 			break;
-		case "modify":
-			$this->_modify($param);
+		case "edit":
+			$this->_edit($param);
 			break;
 		case "delete":
 			$this->_delete($param);
@@ -49,7 +49,7 @@ class AdminArticleController extends Controller
 	 *
 	 * @param array $param article_id
 	 */
-	private function _modify($param) {
+	private function _edit($param) {
 		if (count($param) != 1 || !is_numeric($param[0])) {
 			$this->_notFound();
 			return;
