@@ -25,16 +25,22 @@ defined("IN_CMS") or die("Unauthorized access");
 	<b><?= $article_category ?>:</b>
 	<select name="category">
 		<?php foreach ($category as $c): ?>
-		<option value="<?= $c['id'] ?>"<?php if ($c['id'] == $cat_id) : ?> selected=""<?php endif ?>><?= $c['name'] ?></option>
+		<option value="<?= $c['id'] ?>"<?php if ($c['id'] == $cat_id) : ?> selected="selected"<?php endif ?>><?= $c['name'] ?></option>
 		<?php endforeach ?>
 	</select>
-	
+
 	<b><?= $com_settings ?>:</b>
 	<select name="comments">
-		<option value="1" <?php if ($com_selected == 1) : ?> selected=""<?php endif ?>><?= $adding_allowed ?></option>
-		<option value="-1" <?php if ($com_selected == -1) : ?> selected=""<?php endif ?>><?= $adding_disabled ?></option>
-		<option value="0" <?php if (!$com_selected) : ?> selected=""<?php endif ?>><?= $comments_disabled ?></option>
+		<option value="1" <?php if ($com_selected == 1) : ?> selected="selected"<?php endif ?>><?= $adding_allowed ?></option>
+		<option value="-1" <?php if ($com_selected == -1) : ?> selected="selected"<?php endif ?>><?= $adding_disabled ?></option>
+		<option value="0" <?php if (!$com_selected) : ?> selected="selected"<?php endif ?>><?= $comments_disabled ?></option>
 	</select>
+
+	<?php if (isset($files_link)) : ?>
+	<br/><br/>
+	<a href="<?= $files_link ?>" target="_blank"><?= $edit_files ?></a><br/>
+	<i><?= $message_files ?></i>
+	<?php endif ?>
 	<hr/>
 
 	<b><?= $article_content ?>:</b><br/>

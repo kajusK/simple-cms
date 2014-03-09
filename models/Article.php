@@ -18,11 +18,20 @@ class Article
 	 * Get article content
 	 *
 	 * @param int $id article id
+	 * @param boolean $expand if true, expand text between []
 	 * @return mixed false or array of article content
 	 */
-	public function getArticle($id) {
-		return Db::queryRow("SELECT a.id,l.title,l.description,l.content,l.keywords,l.url,a.date_created as date FROM
+	public function getArticle($id, $expand=true) {
+		$ret = Db::queryRow("SELECT a.id,l.title,l.description,l.content,l.keywords,l.url,a.date_created as date FROM
 		       	  articles_".Lang::getLang()." AS l JOIN articles AS a ON l.id=a.id WHERE l.id=?", array($id));
+		if (!$expand)
+			return $ret;
+
+		if (!$ret)
+			return false;
+
+		$ret['content'] = self::_expandPaths($id, $ret['content']);
+		return $ret;
 	}
 
 	/**
@@ -308,6 +317,19 @@ class Article
 		}
 
 		return $err;
+	}
+
+	/**
+	 * Expand [file] to upload_dir/file
+	 *
+	 * @param int $id article id
+	 * @param string $string
+	 * @return string
+	 */
+	private function _expandPaths($id, $string) {
+		$path = Url::getBase()."/".UPLOAD_ARTICLE."$id";
+		
+		return preg_replace("/\[(.*?)\]/is", "$path/$1", $string);
 	}
 
 	/**

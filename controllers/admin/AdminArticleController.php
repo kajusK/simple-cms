@@ -40,9 +40,7 @@ class AdminArticleController extends Controller
 			$this->_notFound();
 			break;
 		}
-
 	}
-
 
 	/**
 	 * Modify article of given id
@@ -57,6 +55,7 @@ class AdminArticleController extends Controller
 		$id = $param[0];
 
 		$this->_articleCommon(Article::getCategory($id), Comments::allowed($id));
+		$this->data['files_link'] = Url::get("admin", "files", "article", $id);
 
 		if (isset($_POST['name'])) {
 			if (Article::modify($id, $_POST['name'], $_POST['description'], $_POST['keywords'], $_POST['content'], $_POST['category'])) {
@@ -67,7 +66,7 @@ class AdminArticleController extends Controller
 			return;
 		}
 
-		$article = Article::getArticle($id);
+		$article = Article::getArticle($id, false);
 		if (!$article) {
 			$this->_notFound(Lang::get("NO_ARTICLE"));
 			return;
@@ -157,10 +156,12 @@ class AdminArticleController extends Controller
 				'article_category' => Lang::get("CATEGORY"),
 				'article_content' => Lang::get("EDIT_CONTENT"),
 				'send' => Lang::get("SEND"),
+				'edit_files' => Lang::get("EDIT_FILES"),
 				'adding_allowed' => Lang::get("COM_ADDING_ALLOWED"),
 				'adding_disabled' => Lang::get("COM_ADDING_DISABLED"),
 				'comments_disabled' => Lang::get("COM_DISABLED"),
 				'com_settings' => Lang::get("COM_SETTINGS"),
+				'message_files' => Lang::get("FILE_TUTORIAL"),
 				'com_selected' => $com_selected);
 
 		if (isset($_POST['name'])) {

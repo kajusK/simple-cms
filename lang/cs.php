@@ -75,4 +75,5 @@ $lang = array(
 		'DELETE'		=> "Smazat",
 		'FILE_EXISTS'		=> "Soubor \"%s\" již existuje",
 		'UPLOAD_FINISHED'	=> "Nahrávání dokončeno",
+		'FILE_TUTORIAL'		=> "Text umístěný v [cesta] bude rozvinut do adresář_nahraných_souborů/cesta",
 );

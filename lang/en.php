@@ -75,4 +75,5 @@ $lang = array(
 		'DELETE'		=> "Delete",
 		'FILE_EXISTS'		=> "File \"%s\" already exists",
 		'UPLOAD_FINISHED'	=> "Uploading finished",
+		'FILE_TUTORIAL'		=> "Text like [path] will be expanded to uploaded_files/path",
 );
