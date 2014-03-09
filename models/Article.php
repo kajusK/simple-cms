@@ -53,7 +53,7 @@ class Article
 	}
 
 	/**
-	 * Does this article exists?
+	 * Does this article translation exists?
 	 *
 	 * @param int $id article id
 	 * @return boolean true if exists
@@ -66,6 +66,22 @@ class Article
 		$count = $ret['COUNT(*)'];
 		if ($count > 0)
 			return true;
+		return false;
+	}
+	
+	/**
+	 * Does this article exists regardless of languages?
+	 *
+	 * @param int $id article id
+	 * @return boolean true if exists
+	 */
+	public function existsIgnoreLang($id) {
+		$ret = Db::queryRow("SELECT COUNT(*) FROM articles WHERE id=?", array($id));
+		if (!$ret)
+			return false;
+		if ($ret['COUNT(*)'])
+			return true;
+		return false;
 	}
 
 	/**
