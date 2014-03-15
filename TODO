@@ -1,4 +1,8 @@
-learn editor to control comments and categories
+comments - add tags for links
+
+editor:
+	add comments (delete/modify/ban) and categories control
+	add menu to choose what to do
 
 Add possibility to add static page (menu item will point at it directly, no paging), url will
 contain just menu string, no id

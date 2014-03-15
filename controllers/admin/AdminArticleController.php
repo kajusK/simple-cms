@@ -66,10 +66,17 @@ class AdminArticleController extends Controller
 			return;
 		}
 
-		$article = Article::getArticle($id, false);
-		if (!$article) {
+		if (!Article::existsIgnoreLang($id)) {
 			$this->_notFound(Lang::get("NO_ARTICLE"));
 			return;
+		}
+		$article = Article::getArticle($id, false);
+
+		if (!$article) {
+			$article = array('title' => "",
+					'description' => "",
+					'keywords' => "",
+					'content' => "");
 		}
 
 		$this->data['name'] = $article['title'];

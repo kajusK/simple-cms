@@ -170,21 +170,30 @@ class Article
 	 * @return boolean true if succeed
 	 */
 	public function modify($id, $name, $description, $keywords, $content, $category) {
-		if (!self::exists($id)) {
+		if (!self::existsIgnoreLang($id)) {
 			Message::add(Lang::get("NO_ARTICLE"));
 			return false;
 		}
-
+		
 		if (!self::_check($name, $description, $keywords))
 			return false;
 
 		$url = self::_prepareLink($name);
-		//I'd like to check return value, but if data are the same, it returns 0, so it's a problem
-		Db::update("articles_".Lang::getLang(), array('id' => $id), array('title' => $name,
-					'url' => $url,
-					'description' => $description,
-					'keywords' => $keywords,
-					'content' => $content));
+
+		/* this translation doesn't exist */
+		if (!self::exists($id)) {
+			if (!self::_addTranslation($id, $url, $name, $description, $keywords, $content)) {
+				Message::add(Lang::get("DB_UNABLE_SAVE"));
+				return false;
+			}
+		} else {
+			//I'd like to check return value, but if data are the same, it returns 0, so it's a problem
+			Db::update("articles_".Lang::getLang(), array('id' => $id), array('title' => $name,
+						'url' => $url,
+						'description' => $description,
+						'keywords' => $keywords,
+						'content' => $content));
+		}
 
 		//same problem
 		Db::update("articles", array('id' => $id), array('menu_id' => $category,
@@ -226,13 +235,7 @@ class Article
 		}
 		$id = $id['id'];
 
-		$affected = Db::insert("articles_".Lang::getLang(), array('id' => $id,
-					'url' => $url,
-					'title' => $name,
-					'description' => $description,
-					'keywords' => $keywords,
-					'content' => $content));
-		if (!$affected) {
+		if (!self::_addTranslation($id, $url, $name, $description, $keywords, $content)) {
 			Message::add(Lang::get("DB_UNABLE_SAVE"));
 			return false;
 		}
@@ -317,6 +320,27 @@ class Article
 		}
 
 		return $err;
+	}
+
+	/**
+	 * Add article translation to database
+	 *
+	 * @param int $id
+	 * @param string $url
+	 * @param string $name
+	 * @param string $description
+	 * @param string $keywords
+	 * @param string $content
+	 *
+	 * @return boolean true if succeed
+	 */
+	private function _addTranslation($id, $url, $name, $description, $keywords, $content) {
+		return Db::insert("articles_".Lang::getLang(), array('id' => $id,
+					'url' => $url,
+					'title' => $name,
+					'description' => $description,
+					'keywords' => $keywords,
+					'content' => $content));
 	}
 
 	/**
