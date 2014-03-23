@@ -29,6 +29,10 @@ class Menu
 		$menu = array();
 
 		foreach ($res as $n) {
+			//skip items without name
+			if (!$n['name'])
+				continue;
+
 			if ($n['parent_id'] == 0) {
 				$menu[$n['id']]['main'] = $n;
 				continue;
@@ -41,7 +45,7 @@ class Menu
 	}
 
 	/**
-	 * Get all menu items
+	 * Get all names of menus and submenus
 	 *
 	 * @return mixed array of items or false
 	 */
@@ -50,7 +54,7 @@ class Menu
 	}
 
 	/**
-	 * Get name of given category
+	 * Get name of given menu item
 	 *
 	 * @param int $id category id
 	 * @return mixed string or false
