@@ -36,11 +36,11 @@ class MenuController extends Controller
 		if (!$page)
 			return Url::get("category", $id);
 
-		$url = Page::getUrl($id);
+		$url = Article::getUrl($page);
 		if (!$url)
 			$url = false;
 
-		return Url::get("page", $id, $url);
+		return Url::get("page", $page, $url);
 	}
 
 }

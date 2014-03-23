@@ -21,7 +21,7 @@ class Menu
 	 *		and may contain unspecified number of submenus array
 	 */
 	public function get() {
-		$res = Db::query("SELECT name_".Lang::getLang()." AS name, id, parent_id FROM
+		$res = Db::query("SELECT name_".Lang::getLang()." AS name, id, parent_id, page FROM
 				  menu  ORDER BY parent_id, id");
 		if (!$res)
 			return false;
