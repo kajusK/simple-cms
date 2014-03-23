@@ -31,7 +31,7 @@ class CategoryController extends Controller
 	/**
 	 * Show page of articles of given category
 	 *
-	 * @param array $param id,url,[page, page_num]
+	 * @param array $param id,[page, page_num]
 	 */
 	private function _category($param) {
 		$name = Menu::getName($param[0]);
@@ -43,21 +43,12 @@ class CategoryController extends Controller
 		$this->head = array('title' => $name, 'keywords' => "", 'description' => "");
 
 		$page = 1;
-		if (isset($param[2])) {
-			if ($param[2] != "page" || !isset($param[3]) || !is_numeric($param[3])) {
+		if (isset($param[1])) {
+			if ($param[1] != "page" || !isset($param[2]) || !is_numeric($param[2])) {
 				$this->_notFound();
 				return;
 			}
-			$page = $param[3];
-		}
-
-		//nice url do not match, redirect to correct one
-		if (!isset($param[1]) || $name != $param[1]) {
-			$this->statusCode(301);
-			if (isset($param[2]))
-				$this->redirect(Url::get("category", $param[0], $name, "page", $page), 0);
-
-			$this->redirect(Url::get("category", $param[0], $name), 0);
+			$page = $param[2];
 		}
 
 		$this->cat_id = $param[0];
@@ -135,10 +126,10 @@ class CategoryController extends Controller
 		}
 
 		//prepare link
-		$url_temp = Url::getTemp("category", $this->cat_id, $this->cat_name, "page", "%d");
+		$url_temp = Url::getTemp("category", $this->cat_id, "page", "%d");
 
 		if ($page != 1) {
-			$this->data['first'] = Url::get("category", $this->cat_id, $this->cat_name);
+			$this->data['first'] = Url::get("category", $this->cat_id);
 			$this->data['prev'] = Url::getFrom($url_temp, $page-1);
 		}
 

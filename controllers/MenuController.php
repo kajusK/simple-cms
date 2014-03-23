@@ -22,13 +22,25 @@ class MenuController extends Controller
 
 		//create links
 		foreach ($res as & $r) {
-			$r['main']['link'] = Url::get("category", $r['main']['id'], $r['main']['name']);
+			$r['main']['link'] = self::_link($r['main']['id'], $r['main']['page']);
 			foreach ($r as $m => & $i) {
 				if (is_numeric($m))
-					$i['link'] = Url::get("category", $i['id'], $i['name']);
+					$i['link'] = self::_link($i['id'], $i['page']);
 			}
 		}
 
 		$this->data['menu'] = $res;
 	}
+
+	private function _link($id, $page) {
+		if (!$page)
+			return Url::get("category", $id);
+
+		$url = Page::getUrl($id);
+		if (!$url)
+			$url = false;
+
+		return Url::get("page", $id, $url);
+	}
+
 }
