@@ -25,7 +25,6 @@ class Db
 	 */
 	public static function connect($host, $user, $pass, $database, $port = NULL) {
 		if (!empty(self::$mysqli)) {
-			Logging::info("Database already connected");
 			return true;
 		}
 		if (!$port)
@@ -33,7 +32,6 @@ class Db
 
 		self::$mysqli = new mysqli($host, $user, $pass, $database, $port);
 		if (self::$mysqli->connect_errno) {
-			Logging::error(self::$mysqli->connect_error);
 			return false;
 		}
 		self::$mysqli->set_charset('utf8');
