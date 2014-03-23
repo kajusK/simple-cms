@@ -37,7 +37,7 @@ class ArticleController extends Controller
 		}
 
 		//nice url do not match, redirect to correct one
-		if ($res['url'] != $param[1]) {
+		if (!isset($param[1]) || $res['url'] != $param[1]) {
 			$this->statusCode(301);
 			$this->redirect(Url::get("article", $res['id'], $res['url']), 0);
 		}
