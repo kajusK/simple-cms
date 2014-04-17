@@ -76,4 +76,10 @@ $lang = array(
 		'FILE_EXISTS'		=> "File \"%s\" already exists",
 		'UPLOAD_FINISHED'	=> "Uploading finished",
 		'FILE_TUTORIAL'		=> "Text like [path] will be expanded to uploaded_files/path",
+
+		'ARTICLE'		=> "Article",
+		'MENU'			=> "Menu",
+		'EDIT'			=> "Edit",
+		'ARTICLE_ADD'		=> "Add article",
+		'LOGOUT'		=> "Logout",
 );

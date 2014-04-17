@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Yet another simple CMS
@@ -10,5 +9,14 @@
 //no direct access
 defined("IN_CMS") or die("Unauthorized access");
 ?>
+
+<div id="admin_menu">
+	<a href="<?= $logout_link ?>"><?= $logout ?></a><br/>
+	<b><?= $edit ?>:</b>
+	<?php foreach($actions as $a => $l) : ?>
+	<a id="admin_menu_item" href="<?= $l ?>"><?= $a ?></a>
+	<?php endforeach ?>
+
+</div>
 
 <?php if ($this->controller) echo $this->controller->printView(); ?>

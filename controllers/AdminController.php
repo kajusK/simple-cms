@@ -14,6 +14,7 @@ defined("IN_CMS") or die("Unauthorized access");
  */
 class AdminController extends Controller
 {
+	protected $view = "admin/main";
 	protected $controller = false;
 
 	/**
@@ -22,13 +23,15 @@ class AdminController extends Controller
 	public function __construct($param)
 	{
 		$this->head['title'] = Lang::get("TITLE_ADMIN");
-		$this->view = "admin/main";
 
-		if (!Login::isLogged() && !$this->_login($param))
+		if (!Login::isLogged()) {
+			$this->_login($param);
 			return;
+		}
+			
+		$this->_actions();
 
 		if (count($param) == 0) {
-			$this->_notFound();
 			return;
 		}
 
@@ -51,7 +54,6 @@ class AdminController extends Controller
 			$this->_notFound();
 			break;
 		}
-
 	}
 
 	/**
@@ -77,5 +79,18 @@ class AdminController extends Controller
 		$this->data['name'] = $_POST['name'];
 		if (Login::create($_POST['name'], $_POST['pass']))
 			$this->redirect(Url::getSelf());
+		return false;
+	}
+
+	/**
+	 * Show possible actions
+	 */
+	private function _actions() {
+		$this->data['edit'] = Lang::get("EDIT");
+		$this->data['actions'] = array(Lang::get("ARTICLE") => Url::get("admin", "article"),
+				Lang::get("MENU") => Url::get("admin", "menu"),
+				Lang::get("COMMENT") => Url::get("admin", "comment"));
+		$this->data['logout'] = Lang::get("LOGOUT");
+		$this->data['logout_link'] = Url::get("admin", "logout");
 	}
 }

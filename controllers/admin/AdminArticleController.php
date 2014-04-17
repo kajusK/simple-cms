@@ -14,14 +14,13 @@ defined("IN_CMS") or die("Unauthorized access");
  */
 class AdminArticleController extends Controller
 {
-
 	/**
 	 * @param array $param add/modify/delete id
 	 */
 	public function __construct($param)
 	{
 		if (count($param) == 0) {
-			$this->_notFound();
+			$this->_list($param);
 			return;
 		}
 
@@ -36,10 +35,26 @@ class AdminArticleController extends Controller
 		case "delete":
 			$this->_delete($param);
 			break;
+		case "page":
+			$this->_list($param);
+			break;
 		default:
 			$this->_notFound();
 			break;
 		}
+	}
+
+	/**
+	 * List all articles and actions
+	 */
+	private function _list($param) {
+		/*
+		$this->view = "admin/article_list";
+		$this->data['link_add'] = Url::get("admin", "article", "add");
+		$this->data['article_add'] = Lang::get("ARTICLE_ADD");
+
+		$this->data['articles'] = Article::getPage(0, 100);
+		*/
 	}
 
 	/**
