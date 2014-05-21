@@ -138,11 +138,10 @@ class Article
 	 * @return mixed array of articles or false
 	 */
 	public function getPage($from, $items, $cat_id = false) {
-		$where = "WHERE page=FALSE";
-
+		$where = "";
 		$in = self::_getIn($cat_id);
 		if ($in)
-			$where .= " AND a.menu_id IN ($in)";
+			$where .= "WHERE a.menu_id IN ($in)";
 
 		return Db::query("SELECT l.title,l.description,l.id,l.url,a.date_created as date
 				  FROM articles_".Lang::getLang()." AS l JOIN articles AS a ON
@@ -157,11 +156,10 @@ class Article
 	 * @return mixed false or array
 	 */
 	public function countAll($cat_id = false) {
-		$where = "WHERE page=FALSE";
-
+		$where = "";
 		$in = self::_getIn($cat_id);
 		if ($in)
-			$where .= " AND a.menu_id IN ($in)";
+			$where .= "WHERE a.menu_id IN ($in)";
 
 		$ret = Db::queryRow("SELECT COUNT(*) FROM articles_".Lang::getLang()." AS l JOIN articles AS a ON
 				l.id = a.id $where");
@@ -226,17 +224,16 @@ class Article
 	 * @param string $content
 	 * @param int $category
 	 * @param int $permissions for comments (@see Comments::setPermissions)
-	 * @param boolean $page if true, adding page, if false, article
 	 *
 	 * @return boolean true if succeed
 	 */
-	public function add($name, $description, $keywords, $content, $category, $permissions, $page = false) {
+	public function add($name, $description, $keywords, $content, $category, $permissions) {
 		if (!self::_check($name, $description, $keywords))
 			return false;
 
 		$url = self::_prepareLink($name);
 
-		$affected = Db::insert("articles", array('menu_id' => $category, 'page' => $page));
+		$affected = Db::insert("articles", array('menu_id' => $category));
 		if (!$affected) {
 			Message::add(Lang::get("DB_UNABLE_SAVE"));
 			return false;

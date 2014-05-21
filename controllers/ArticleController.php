@@ -55,7 +55,7 @@ class ArticleController extends Controller
 	 *
 	 * @param int $id article id
 	 */
-	private function __notFound($id) {
+	protected function __notFound($id) {
 		$res = Article::translAvailable($id);
 		if (count($res) != 0)
 			$this->_notFound(Lang::get("NO_TRANSL"));

@@ -9,7 +9,7 @@
 //no direct access
 defined("IN_CMS") or die("Unauthorized access");
 
-class PageController extends Controller
+class PageController extends ArticleController
 {
 	protected $view = "page";
 	protected $comments;
@@ -25,7 +25,7 @@ class PageController extends Controller
 
 		$res = Article::getArticle($param[0]);
 		if (!$res) {
-			$this->_notFound();
+			$this->__notFound($param[0]);
 			return;
 		}
 
@@ -39,6 +39,7 @@ class PageController extends Controller
 
 		$this->data['title'] = $res['title'];
 		$this->data['content'] = $res['content'];
+		$this->data['date'] = $res['date'];
 
 		$this->comments = new CommentController($param[0]);
 	}
