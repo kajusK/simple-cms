@@ -59,7 +59,8 @@ $lang = array(
 		'ARTICLE_DELETE'	=> "Smazat článek: %s",
 		'CATEGORY'		=> "Kategorie",
 
-		'TITLE_LONG'		=> "Titulek je příliš dlouhý, maximální délka je ".TITLE_LENGTH,
+		'TITLE_LONG'		=> "Titulek je příliš dlouhý, maximální délka je ".TITLE_LENGTH_MAX,
+		'TITLE_SHORT'		=> "Titulek je příliš krátký, minimální délka je ".TITLE_LENGTH_MIN,
 		'DESCRIPTION_LONG'	=> "Popis přílíš dlouhý, maximální délka je ".DESC_LENGTH,
 		'KEYWORDS_LONG'		=> "Klíčová slova příliš dlouhá, maximální délka je ".KEYWORDS_LENGTH,
 		'SAVED'			=> "Uloženo",

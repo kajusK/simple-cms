@@ -318,8 +318,11 @@ class Article
 	 */
 	private function _check($name, $description, $keywords) {
 		$err = true;
-		if (strlen($name) > TITLE_LENGTH) {
+		if (strlen($name) > TITLE_LENGTH_MAX) {
 			Message::add(Lang::get("TITLE_LONG"));
+			$err = false;
+		} else if (strlen($name) < TITLE_LENGTH_MIN) {
+			Message::add(Lang::get("TITLE_SHORT"));
 			$err = false;
 		}
 		if (strlen($description) > DESC_LENGTH) {

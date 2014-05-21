@@ -59,7 +59,8 @@ $lang = array(
 		'ARTICLE_DELETE'	=> "Delete article: %s",
 		'CATEGORY'		=> "Category",
 
-		'TITLE_LONG'		=> "Title too long, maximal length is ".TITLE_LENGTH,
+		'TITLE_LONG'		=> "Title too long, maximal length is ".TITLE_LENGTH_MAX,
+		'TITLE_SHORT'		=> "Title too short, minimal length is ".TITLE_LENGTH_MIN,
 		'DESCRIPTION_LONG'	=> "Description too long, maximal length is ".DESC_LENGTH,
 		'KEYWORDS_LONG'		=> "Keywords too long, maximal length is ".KEYWORDS_LENGTH,
 		'SAVED'			=> "Saved",
