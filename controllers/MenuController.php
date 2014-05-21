@@ -42,5 +42,4 @@ class MenuController extends Controller
 
 		return Url::get("page", $page, $url);
 	}
-
 }

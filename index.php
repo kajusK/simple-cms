@@ -36,7 +36,6 @@ function class_autoload($name)
 
 	require "controllers/$dir/$name.php";
 }
-
 spl_autoload_register("class_autoload");
 
 require_once "config.php";

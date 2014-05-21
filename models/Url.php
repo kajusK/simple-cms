@@ -42,7 +42,6 @@ class Url
 	/**
 	 * Generate local link
 	 *
-	 * If controller is article, don't add it into URL.
 	 * Language is added automatically
 	 *
 	 * @param string $controller controller to call
@@ -52,9 +51,6 @@ class Url
 	 */
 	public static function get($controller) {
 		$args = func_get_args();
-		//ignore controller article in address
-		if ($controller == "article")
-			unset($args[0]);
 
 		$link = call_user_func_array(array("self","getPure"), $args);
 		$link .= "/".Lang::getLang();
@@ -70,7 +66,7 @@ class Url
 		$url .= substr($_SERVER['REQUEST_URI'], strlen(dirname($_SERVER['SCRIPT_NAME'])));
 		return $url;
 	}
-	
+
 	/**
 	 * Generate local link
 	 *
@@ -147,6 +143,4 @@ class Url
 	public static function getFrom($format) {
 		return call_user_func_array("sprintf", func_get_args());
 	}
-
-
 }

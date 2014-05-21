@@ -15,7 +15,7 @@ defined("IN_CMS") or die("Unauthorized access");
 class Lang
 {
 	private static $transl = array();
-	private static $lang = ''; // LANG_DEFAULT;
+	private static $lang = LOCAL_LANG;
 
 	/**
 	 * Set language and locale
@@ -99,7 +99,7 @@ class Lang
 	 *
 	 * @param string $str language to check
 	 * @return boolean
-	 */	 
+	 */
 	public static function isLang($str) {
 		if (is_file("lang/$str.php"))
 			return true;

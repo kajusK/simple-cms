@@ -9,6 +9,7 @@
 //no direct access
 defined("IN_CMS") or die("Unauthorized access");
 ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?= $lang ?>" lang="<?= $lang?>">
 <head>
@@ -16,7 +17,7 @@ defined("IN_CMS") or die("Unauthorized access");
 	<meta http-equiv="Content-language" content="<?= $lang ?>" />
 
 	<title><?= $title ?></title>
-	
+
 	<?php if (isset($description) && $description): ?>
 	<meta name="description" content="<?= $description ?>" />
 	<meta name="keywords" content="<?= $keywords ?>" />
@@ -37,7 +38,7 @@ defined("IN_CMS") or die("Unauthorized access");
 		<?php endforeach; endif ?>
 		</div>
 	</div>
-	
+
 	<div id="content">
 		<div id="msg_box">
 		<?php foreach($messages as $msg) : ?>

@@ -20,6 +20,9 @@ class RouterController extends Controller
 	protected $menu;
 	protected $view = "main";
 
+	/**
+	 * @param string $param url script was called by
+	 */
 	public function __construct($param) {
 		$url = $this->_parseURL($param);
 		//set language
@@ -32,7 +35,8 @@ class RouterController extends Controller
 			if (count($url) != 0) {
 				$this->statusCode(301);
 				$link = call_user_func_array("Url::get", $url);
-				$this->redirect($link, 0);
+				$this->redirect($link);
+				return;
 			}
 		}
 		$this->data['lang'] = Lang::getLang();
@@ -49,6 +53,7 @@ class RouterController extends Controller
 		$this->menu = new MenuController();
 		$this->data['lang_switch'] = $this->_langSwitch($url);
 
+		/* load required controller */
 		if ($this->_route($url)) {
 			$this->data = array_merge($this->data, $this->controller->head);
 		} else {
@@ -56,6 +61,7 @@ class RouterController extends Controller
 			Message::add(Lang::get("NOT_FOUND"));
 			$this->statusCode(404);
 		}
+
 		/* load all messages */
 		$this->data['messages'] = Message::getMessages();
 	}
@@ -71,7 +77,7 @@ class RouterController extends Controller
 		if ($langs === false)
 			return false;
 
-		/* just in case somebody would play with urls */
+		/* just in case somebody would play with urls (getTemp use sprintf) */
 		foreach ($param as & $p)
 			$p = str_replace("%", "%%", $p);
 
@@ -104,6 +110,7 @@ class RouterController extends Controller
 			$this->controller = new ArticleController($param);
 			return true;
 		}
+
 		/* load given controller */
 		$contClass = ucfirst(array_shift($param))."Controller";
 		if (!is_file("controllers/$contClass.php") ||
