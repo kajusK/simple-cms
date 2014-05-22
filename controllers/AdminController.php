@@ -28,7 +28,7 @@ class AdminController extends Controller
 			$this->_login($param);
 			return;
 		}
-			
+
 		$this->_actions();
 
 		if (count($param) == 0) {
@@ -45,9 +45,13 @@ class AdminController extends Controller
 		case "article":
 			$this->controller = new AdminArticleController($param);
 			break;
-		
+
 		case "files":
 			$this->controller = new AdminFilesController($param);
+			break;
+
+		case "menu":
+			$this->controller = new AdminMenuController($param);
 			break;
 
 		default:

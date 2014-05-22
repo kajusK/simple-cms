@@ -148,7 +148,7 @@ class AdminArticleController extends Controller
 			return;
 		}
 
-		$this->data = array('article_delete' => Lang::get("ARTICLE_DELETE", $name),
+		$this->data = array('delete_msg' => Lang::get("ARTICLE_DELETE", $name),
 				'yes' => Lang::get("YES"),
 				'no' => Lang::get("NO"),
 				'confirm' => Lang::get("CONFIRM_DELETE"),

@@ -1,0 +1,28 @@
+<?php
+/**
+ * Yet another simple CMS
+ *
+ * @copyright 2014 Jakub Kaderka
+ * @license GNU General Public License, version 2; see LICENSE.txt
+ */
+
+//no direct access
+defined("IN_CMS") or die("Unauthorized access");
+?>
+<h1><?= $menu_edit ?></h1>
+
+<form id="edit_menu" method="post" action="">
+<div>
+	<b><?= $menu_name ?>:</b><br/>
+	<input type="text" name="name" value="<?= $name ?>"/><br/>
+
+	<b><?= $menu_parent ?>:</b>
+	<select name="parent">
+		<option value="0"><?= $menu_no_parent ?></option>
+		<?php foreach ($parents as $c): ?>
+		<option value="<?= $c['id'] ?>"<?php if ($c['id'] == $cur_parent) : ?> selected="selected"<?php endif ?>><?= $c['name'] ?></option>
+		<?php endforeach ?>
+	</select><br/>
+	<input type="submit" value="<?= $send ?>"/>
+</div>
+</form>
