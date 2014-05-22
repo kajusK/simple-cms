@@ -35,7 +35,7 @@ class MenuController extends Controller
 	private function _link($id) {
 		if (Article::countAll($id) != 1)
 			return Url::get("category", $id);
-		
+
 		$page = Article::getPage(0, 1, $id);
 		if ($page == false)
 			return Url::get("category", $id);
