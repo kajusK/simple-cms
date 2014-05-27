@@ -15,12 +15,12 @@ defined("IN_CMS") or die("Unauthorized access");
 class AdminMenuController extends Controller
 {
 	/**
-	 * @param array $param add/modify/delete id
+	 * @param array $param add/edit/delete id
 	 */
 	public function __construct($param)
 	{
 		if (count($param) == 0) {
-			$this->_notFound();
+			self::_list();
 			return;
 		}
 
@@ -39,6 +39,28 @@ class AdminMenuController extends Controller
 			$this->_notFound();
 			break;
 		}
+	}
+
+	/**
+	 * Show simple menu of menu entries
+	 */
+	private function _list() {
+		$this->view = "admin/menu_list";
+
+		$menu = Menu::get();
+		if (!$menu)
+			return;
+
+		foreach ($menu as & $m) {
+			foreach ($m as & $i) {
+				$i['link'] = Url::get("admin", "menu", "edit", $i['id']);
+				$i['del'] = Url::get("admin", "menu", "delete", $i['id']);
+			}
+		}
+		$this->data['menu'] = $menu;
+		$this->data['add_msg'] = Lang::get('MENU_ADD');
+		$this->data['menu_edit'] = Lang::get('EDIT_MENU');
+		$this->data['add_link'] = Url::get("admin", "menu", "add");
 	}
 
 	/**
@@ -119,7 +141,7 @@ class AdminMenuController extends Controller
 			return;
 		}
 
-		$this->data = array('delete_msg' => Lang::get("MENU_DELETE", $name),
+		$this->data = array('delete_msg' => Lang::get("MENU_DELETE_ITEM", $name),
 				'yes' => Lang::get("YES"),
 				'no' => Lang::get("NO"),
 				'confirm' => Lang::get("CONFIRM_DELETE"),

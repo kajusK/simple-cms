@@ -62,7 +62,9 @@ $lang = array(
 		'MENU_MAIN'		=> "Hlavní položka",
 		'MENU_PARENT'		=> "Nadmenu",
 		'MENU_NAME'		=> "Jméno",
-		'MENU_DELETE'		=> "Smazat položku: %s",
+		'MENU_DELETE_ITEM'	=> "Smazat položku: %s",
+		'MENU_DELETE'		=> "Smazat položku",
+		'MENU_ADD'		=> "Přidat položku",
 
 		'TITLE_LONG'		=> "Titulek je příliš dlouhý, maximální délka je ".TITLE_LENGTH_MAX,
 		'TITLE_SHORT'		=> "Titulek je příliš krátký, minimální délka je ".TITLE_LENGTH_MIN,

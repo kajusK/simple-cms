@@ -1,0 +1,30 @@
+<?php
+/**
+ * Yet another simple CMS
+ *
+ * @copyright 2014 Jakub Kaderka
+ * @license GNU General Public License, version 2; see LICENSE.txt
+ */
+
+//no direct access
+defined("IN_CMS") or die("Unauthorized access");
+?>
+<h1><?= $menu_edit ?></h1>
+
+<div id="admin_menu_menu">
+	<a href="<?= $add_link ?>"><?= $add_msg ?></a>
+</div><br/>
+
+<div id="admin_menu_list">
+	<?php foreach ($menu as $m): ?>
+		<a href="<?= $m['main']['del'] ?>" class="admin_menu_del">X</a>
+		<a href="<?= $m['main']['link'] ?>" class="admin_menu_top"><?= $m['main']['name'] ?></a><br/>
+
+		<div class="admin_menu_sub">
+		<?php if (count($m) > 1) : foreach ($m as $key => $s) : if (is_numeric($key)) :?>
+			<a href="<?= $s['del'] ?>" class="admin_menu_del">X</a>
+			<a href="<?= $s['link'] ?>"><?= $s['name'] ?></a><br/>
+		<?php endif; endforeach; endif; ?>
+		</div>
+	<?php endforeach ?>
+</div>

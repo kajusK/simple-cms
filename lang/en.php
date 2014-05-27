@@ -63,6 +63,8 @@ $lang = array(
 		'MENU_PARENT'		=> "Parent item",
 		'MENU_NAME'		=> "Name",
 		'MENU_DELETE'		=> "Delete item: %s",
+		'MENU_DELETE'		=> "Delete item",
+		'MENU_ADD'		=> "Add item",
 
 		'TITLE_LONG'		=> "Title too long, maximal length is ".TITLE_LENGTH_MAX,
 		'TITLE_SHORT'		=> "Title too short, minimal length is ".TITLE_LENGTH_MIN,
