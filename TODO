@@ -1,5 +1,6 @@
-comments - add tags for links
-
 editor:
 	add comments (delete/modify/ban) and categories control
-	add menu to choose what to do
+	articles menu - list all articles when no param set
+
+articles:
+	simple code viewer
