@@ -1,0 +1,45 @@
+<?php
+/**
+ * Yet another simple CMS
+ *
+ * @copyright 2014 Jakub Kaderka
+ * @license GNU General Public License, version 2; see LICENSE.txt
+ */
+
+//no direct access
+defined("IN_CMS") or die("Unauthorized access");
+?>
+
+<?php if ($nav) : ?>
+	<div id="cat_nav">
+	<?php if (isset($nav['first'])) : ?>
+		<a href="<?= $nav['first']?>">&lt;&lt;</a>
+	<?php else : ?>
+		&lt;&lt;
+	<?php endif ?>
+	<?php if (isset($nav['prev'])) : ?>
+		<a href="<?= $nav['prev'] ?>">&lt;</a>
+	<?php else : ?>
+		&lt;
+	<?php endif ?>
+
+	<?php foreach ($nav['num'] as $n => $val) : ?>
+		<?php if ($val) : ?>
+		<a href="<?= $val ?>"><?= $n ?></a>
+		<?php else : ?>
+		<?= $n ?>
+		<?php endif ?>
+	<?php endforeach ?>
+
+	<?php if (isset($nav['next'])) : ?>
+		<a href="<?= $nav['next'] ?>">&gt;</a>
+	<?php else : ?>
+		&gt;
+	<?php endif ?>
+	<?php if (isset($nav['last'])) : ?>
+		<a href="<?= $nav['last'] ?>">&gt;&gt;</a>
+	<?php else : ?>
+		&gt;&gt;
+	<?php endif ?>
+	</div>
+<?php endif ?>
