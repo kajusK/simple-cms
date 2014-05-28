@@ -84,6 +84,29 @@ class Files
 	}
 
 	/**
+	 * Remove directory
+	 *
+	 * @param source $dir directory to delete
+	 * @return boolean
+	 */
+	public static function removeDir($dir) {
+		if (!is_dir($dir))
+			return false;
+		$obj = scandir($dir);
+		foreach($obj as $o) {
+			if ($o != "." && $o != "..") {
+				if (filetype($dir."/".$o) == "dir")
+					self::removeDir($dir."/".$o);
+				else
+					unlink($dir."/".$o);
+			}
+		}
+		rmdir($dir);
+
+		return true;
+	}
+
+	/**
 	 * Escape filename
 	 *
 	 * @param string $file
