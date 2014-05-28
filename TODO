@@ -1,3 +1,10 @@
+Error handling
+access logging
+
+comments:
+	log user ip
+	prohibite my username
+
 editor:
 	add comments (delete/modify/ban) and categories control
 
