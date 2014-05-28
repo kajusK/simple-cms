@@ -72,6 +72,18 @@ class Files
 	}
 
 	/**
+	 * Move directory
+	 *
+	 * @param string $source path to source dir
+	 * @param string $target path to target dir
+	 *
+	 * @return boolean true or false
+	 */
+	public static function mvDir($source, $target) {
+		return rename($source, $target);
+	}
+
+	/**
 	 * Escape filename
 	 *
 	 * @param string $file

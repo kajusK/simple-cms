@@ -151,6 +151,7 @@ class AdminArticleController extends Controller
 		}
 
 		$this->_articleCommon();
+		$this->data['files_link'] = Url::get("admin", "files", "new");
 
 		if (isset($_POST['name'])) {
 			if (Article::add($_POST['name'], $_POST['description'], $_POST['keywords'], $_POST['content'],

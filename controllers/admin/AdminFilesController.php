@@ -28,6 +28,9 @@ class AdminFilesController extends Controller
 		case "article":
 			$this->_article($param);
 			break;
+		case "new":
+			$this->_new($param);
+			break;
 		default:
 			$this->_notFound();
 			break;
@@ -44,16 +47,38 @@ class AdminFilesController extends Controller
 			$this->_notFound();
 			return;
 		}
-		$id = $param[0];
 
+		$target = UPLOAD_ARTICLE.$param[0]."/";
+		$this->_common($target);
+	}
+
+	/**
+	 * Upload files for new article - into temporary directory
+	 *
+	 * @param array $param nothing
+	 */
+	private function _new($param) {
+		if (count($param) != 0) {
+			$this->_notFound();
+			return;
+		}
+
+		$target = UPLOAD_ARTICLE_TMP;
+		$this->_common($target);
+	}
+
+	/**
+	 * Common function for new and article
+	 *
+	 * @param string $target directory to save files to
+	 */
+	private function _common($target) {
 		$this->view = "admin/files";
 		$this->data = array('upload' => Lang::get("UPLOAD_FILES"),
 				'files_edit' => Lang::get("EDIT_FILES"),
 				'send' => Lang::get("SEND"),
 				'name' => Lang::get("FILENAME"),
 				'delete' => Lang::get("DELETE"));
-
-		$target = UPLOAD_ARTICLE."$id/";
 
 		if (isset($_POST['upload']))
 			Files::upload($target, $_FILES['upload']);

@@ -10,6 +10,7 @@
 defined("IN_CMS") or die("Unauthorized access");
 
 define("UPLOAD_ARTICLE", "files/articles/");
+define("UPLOAD_ARTICLE_TMP", "files/articles/tmp/");
 
 define("TITLE_LENGTH_MAX", 50);
 define("TITLE_LENGTH_MIN", 2);
