@@ -94,6 +94,9 @@ class AdminFilesController extends Controller
 	 * @param string $target target directory
 	 */
 	private function _delete($target) {
+		if (!isset($_POST['files']))
+			return;
+
 		foreach ($_POST['files'] as $f=>$r) {
 			if ($r == "on")
 				Files::remove($target.$f);
