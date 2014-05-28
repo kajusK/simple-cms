@@ -157,7 +157,7 @@ class AdminArticleController extends Controller
 			if (Article::add($_POST['name'], $_POST['description'], $_POST['keywords'], $_POST['content'],
 			    $_POST['category'], $_POST['comments'])) {
 				$this->view = false;
-				$this->redirect(Url::get(false), 2);
+				$this->redirect(Url::get("admin", "article"), 2);
 			}
 			return;
 		}
@@ -197,7 +197,7 @@ class AdminArticleController extends Controller
 		if (isset($_POST['delete']) && $_POST['delete'] == "yes") {
 			if (Article::remove($id)) {
 				$this->view = false;
-				$this->redirect(Url::get(false), 2);
+				$this->redirect(Url::get("admin", "article"), 2);
 			}
 			return;
 		}
