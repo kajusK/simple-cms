@@ -48,13 +48,52 @@ class AdminArticleController extends Controller
 	 * List all articles and actions
 	 */
 	private function _list($param) {
-		/*
+		if (count($param) != 0 && (count($param) != 2 || $param[0] != "page" || is_numeric($param[1]))) {
+			$this->_notFound();
+			return;
+		}
+		$page = isset($param[1]) ? $param[1] : 1;
 		$this->view = "admin/article_list";
-		$this->data['link_add'] = Url::get("admin", "article", "add");
-		$this->data['article_add'] = Lang::get("ARTICLE_ADD");
 
-		$this->data['articles'] = Article::getPage(0, 100);
-		*/
+		$this->data = array('add_link' => Url::get("admin", "article", "add"),
+			'add' => Lang::get("ARTICLE_ADD"),
+			'add_msg' => Lang::get("EDIT_ARTICLE"));
+
+		$this->_genPaging($page, ADMIN_PER_PAGE);
+	}
+
+	/**
+	 * Generate page of articles
+	 *
+	 * @param int $page number of page
+	 * @param int $per_page articles to show per page
+	 */
+	private function _genPaging($page, $per_page) {
+		$count = Article::countAll();
+		if (!$count) {
+			$this->_notFound();
+			return;
+		}
+		$from = Paging::getFrom($page, $per_page, $count);
+		if ($from === false) {
+			$this->_notFound();
+			return;
+		}
+		$this->data['articles'] = Article::getPage($from, $per_page);
+		if (!$this->data['articles']) {
+			$this->_notFound();
+			return;
+		}
+		$temp = Url::getTemp("admin", "article", "edit", "%d");
+		$temp2 = Url::getTemp("admin", "article", "delete", "%d");
+		foreach ($this->data['articles'] as &$a) {
+			$a['link'] = Url::getFrom($temp, $a['id']);
+			$a['del'] = Url::getFrom($temp2, $a['id']);
+		}
+
+		$this->data['nav'] = Paging::genNav($count, $page, $per_page,
+				Url::get("admin", "article"),
+				Url::getTemp("admin", "article", "page", "%d"));
 	}
 
 	/**

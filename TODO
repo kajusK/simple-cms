@@ -1,6 +1,6 @@
 editor:
 	add comments (delete/modify/ban) and categories control
-	articles menu - list all articles when no param set
+	when adding new article, save files in /tmp and move them after save
 
 articles:
 	simple code viewer

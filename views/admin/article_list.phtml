@@ -1,0 +1,25 @@
+<?php
+/**
+ * Yet another simple CMS
+ *
+ * @copyright 2014 Jakub Kaderka
+ * @license GNU General Public License, version 2; see LICENSE.txt
+ */
+
+//no direct access
+defined("IN_CMS") or die("Unauthorized access");
+?>
+
+<h1><?= $add_msg ?></h1>
+
+<a href="<?= $add_link ?>" id="admin_article_add"><?= $add ?></a>
+<br/></br>
+
+<div id="admin_article_list">
+<?php foreach ($articles as $a) : ?>
+	<a href="<?= $a['del'] ?>">X</a>
+	<a href="<?= $a['link'] ?>"><?= $a['title'] ?></a><br/>
+<?php endforeach ?>
+</div>
+
+<?php require "views/paging.phtml" ?>
