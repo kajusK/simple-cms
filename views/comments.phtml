@@ -17,7 +17,7 @@ defined("IN_CMS") or die("Unauthorized access");
 		<div class="comment">
 			<div class="com_head">
 				<b><?= e($comment['nickname']) ?></b><br/>
-				<?= $comment['date'] ?>
+				<div class="com_date"><?= $comment['date'] ?></div>
 			</div>
 			<div class="com_text">
 				<?= e($comment['text']) ?>

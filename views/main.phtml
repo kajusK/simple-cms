@@ -31,12 +31,13 @@ defined("IN_CMS") or die("Unauthorized access");
 <body>
 <div id="wrapper">
 	<div id="header">
-		<?php if ($this->menu) $this->menu->printView(); ?>
+		<a href="<?= $base ?>"><img alt="" src="<?= $base ?>files/page/head.jpg"/></a>
 		<div id="lang_switch">
 		<?php if ($lang_switch) : foreach ($lang_switch as $l) : ?>
 			<a href="<?= $l['link'] ?>"><?= $l['name'] ?></a>
 		<?php endforeach; endif ?>
 		</div>
+		<?php if ($this->menu) $this->menu->printView(); ?>
 	</div>
 
 	<div id="content">

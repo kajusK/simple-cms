@@ -1,12 +1,9 @@
-/* --------------------------------------
-* Yet another simple CMS
-*
-* Page colors - Theme
-* --------------------------------------
-* Jakub Kaderka <jakub.kaderka@gmail.com>
-* 2013
-* --------------------------------------
-*/
+/**
+ * Yet another simple CMS
+ *
+ * @copyright 2014 Jakub Kaderka
+ * @license GNU General Public License, version 2; see LICENSE.txt
+ */
 
 /* ************************************************************
 * Parts of page
@@ -14,7 +11,7 @@
 body {
 	font-family: Georgia,'New York CE',utopia,serif;
 	font-size: 13pt;
-	line-height: 130%;
+	line-height: 120%;
 	color: #000000;
 
 	background-image: url("background.gif");
@@ -22,9 +19,6 @@ body {
 }
 
 #wrapper {
-	margin-left: 5%;
-	margin-right: 5%;
-
 	border: 1px solid gray;
 }
 
@@ -33,20 +27,37 @@ body {
 }
 
 #header img {
-	display: block;
 	border-bottom: 1px solid gray;
 }
 
 #content {
-	padding: 4px;
-	background-color: #FFFFFF;
-	border-color: gray;
+	padding: 4px 10px; 
+	background-color: #F5F5F5;
+	border-top: 1px solid gray;
 }
 
 #footer {
 	text-align: center;
 }
 
+/* ************************************************************
+* General
+************************************************************* */
+a {
+	color: navy;
+}
+a:visited {
+	color: navy;
+}
+a:hover {
+	color: red;
+	text-decoration: underline;
+}
+
+p {
+	text-indent: 30px;
+	margin: 0px;
+}
 /* ************************************************************
 * Page menu
 ************************************************************* */
@@ -83,13 +94,84 @@ body {
 /* ************************************************************
 * Content
 ************************************************************* */
-#paging_nav {
+#msg_box {
+	text-align: center;
+	color: red;      
+	font-size: 110%;
+}
+
+.msg {
+	margin: 5px;
+}
+
+/* ************************************************************
+* Category
+************************************************************* */
+.cat_item {
+	margin: 10px 0px;
+	border-bottom: 2px solid silver;
+}
+
+.cat_item h2 {
+	margin: 0px;
+}
+
+.cat_item_desc {
+	margin-top: 10px;
+}
+
+.cat_item_info {
+	font-size: 70%;
+	color: gray;
+}
+
+/* ************************************************************
+* Article
+************************************************************* */
+#ar_head h1 {
 	text-align: center;
 }
 
-.err_msg {
+#ar_date {
+	font-size: 70%;
+	color: gray;
+	text-align: right;
+}
+
+#ar_info {
+	background-color: gainsboro;
+	padding: 5px;
+	margin: 5px 0px;
+}
+
+/* ************************************************************
+* Page
+************************************************************* */
+#page_title {
 	text-align: center;
-	padding: 9px;
-	color: red;      
-	font-size: 150%;
+}
+
+#page_date {
+	text-align: right;
+	font-size: 70%;
+	color: gray;
+}
+/* ************************************************************
+* Comments
+************************************************************* */
+#comments {
+	margin-top: 10px;
+	padding-top: 10px;
+	border-top: 2px solid gray;
+	font-size: 90%;
+}
+
+.comment {
+	margin: 5px 0px;
+	border: 1px solid gainsboro;
+}
+
+.com_date {
+	font-size: 70%;
+	color: gray;
 }

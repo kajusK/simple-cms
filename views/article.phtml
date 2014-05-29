@@ -13,8 +13,10 @@ defined("IN_CMS") or die("Unauthorized access");
 <div id="article">
 	<div id="ar_head">
 		<h1 id="ar_title"><?= $title ?></h1>
-		<div id="ar_info"><?= $date ?></div>
-		<div id="ar_desc"><?= $description ?></div>
+		<div id="ar_info">
+			<div id="ar_desc"><?= $description ?></div>
+			<div id="ar_date"><?= $date ?></div>
+		</div>
 	</div>
 	<div id ="ar_content">
 		<?= $content ?>

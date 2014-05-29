@@ -1,10 +1,9 @@
 Error handling
 access logging
-nice design - css files
 
 comments:
 	log user ip
-	prohibite my username
+	prohibite my username - different than admin due to security
 
 editor:
 	add comments (delete/modify/ban) and categories control

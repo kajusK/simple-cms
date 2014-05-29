@@ -10,13 +10,13 @@
 defined("IN_CMS") or die("Unauthorized access");
 ?>
 
-<div id="cathegory">
+<div id="category">
 <?php foreach ($articles as $a) : ?>
 	<div class="cat_item">
 		<h2 class="cat_item_title">
 			<a href="<?= $a['link'] ?>"><?= $a['title'] ?></a>
 		</h2>
-		<p class="cat_item_desc"><?= $a['description'] ?></p>
+		<div class="cat_item_desc"><?= $a['description'] ?></div>
 		<div class="cat_item_info"><?= $a['date'] ?></div>
 	</div>
 <?php endforeach ?>
