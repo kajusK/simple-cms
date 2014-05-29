@@ -140,6 +140,16 @@ class Db
 	}
 
 	/**
+	 * Load file.sql and run it as query
+	 *
+	 * @param string $string query
+	 * @return boolean
+	 */
+	public static function loadDump($string) {
+		return self::$mysqli->multi_query($string);
+	}
+
+	/**
 	 * Generate query
 	 *
 	 * @param string $query string, where params are replaced by ?
