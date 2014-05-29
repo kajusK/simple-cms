@@ -49,7 +49,7 @@ class AdminMenuController extends Controller
 
 		$menu = Menu::get();
 		if (!$menu)
-			return;
+			$menu = array();
 
 		foreach ($menu as & $m) {
 			foreach ($m as & $i) {
