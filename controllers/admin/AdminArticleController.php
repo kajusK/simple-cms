@@ -109,8 +109,9 @@ class AdminArticleController extends Controller
 		}
 		$id = $param[0];
 
-		$this->_articleCommon(Article::getCategory($id), Comments::allowed($id));
+		$comn = $this->_articleCommon(Article::getCategory($id), Comments::allowed($id));
 		$this->data['files_link'] = Url::get("admin", "files", "article", $id);
+		if (!$comn) return;
 
 		if (isset($_POST['name'])) {
 			if (Article::modify($id, $_POST['name'], $_POST['description'], $_POST['keywords'], $_POST['content'], $_POST['category'])) {
@@ -151,8 +152,10 @@ class AdminArticleController extends Controller
 			return;
 		}
 
-		$this->_articleCommon();
+		$comn = $this->_articleCommon();
 		$this->data['files_link'] = Url::get("admin", "files", "new");
+		if (!$comn) return;
+
 
 		if (isset($_POST['name'])) {
 			if (Article::add($_POST['name'], $_POST['description'], $_POST['keywords'], $_POST['content'],
@@ -209,6 +212,8 @@ class AdminArticleController extends Controller
 	 *
 	 * @param int $cat category to be marked as selected
 	 * @param int $com_selected comment settings to be marked as selected
+	 *
+	 * @return boolean false if menu is empty
 	 */
 	private function _articleCommon($cat_id = false, $com_selected = 1) {
 		$this->view = "admin/article";
@@ -232,13 +237,20 @@ class AdminArticleController extends Controller
 			$this->data['description'] = $_POST['description'];
 			$this->data['keywords'] = $_POST['keywords'];
 			$this->data['content'] = $_POST['content'];
-			$this->data['cat_id'] = $_POST['category'];
+			$this->data['cat_id'] = isset($_POST['category']) ? $_POST['category'] : -1;
 			$this->data['com_selected'] = $_POST['comments'];
 		} else {
 			$this->data['cat_id'] = $cat_id ? $cat_id : -1;
 		}
 
 		$this->data['category'] = $this->_categories();
+		if (!$this->data['category']) {
+			Message::add(Lang::get("MENU_EMPTY"));
+			if (isset($_POST['name']))
+				return false;
+		}
+		
+		return true;
 	}
 
 	/**
