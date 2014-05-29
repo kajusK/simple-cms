@@ -10,7 +10,7 @@
 defined("IN_CMS") or die("Unauthorized access");
 ?>
 
-<?php if ($nav) : ?>
+<?php if (isset($nav) && $nav) : ?>
 	<div id="cat_nav">
 	<?php if (isset($nav['first'])) : ?>
 		<a href="<?= $nav['first']?>">&lt;&lt;</a>

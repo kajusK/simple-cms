@@ -71,7 +71,8 @@ class AdminArticleController extends Controller
 	private function _genPaging($page, $per_page) {
 		$count = Article::countAll();
 		if (!$count) {
-			$this->_notFound();
+			Message::add(Lang::get('CATEGORY_EMPTY'));
+			$this->data['articles'] = array();
 			return;
 		}
 		$from = Paging::getFrom($page, $per_page, $count);
