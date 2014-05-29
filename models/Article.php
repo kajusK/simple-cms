@@ -225,7 +225,7 @@ class Article
 	 * @param int $category
 	 * @param int $permissions for comments (@see Comments::setPermissions)
 	 *
-	 * @return boolean true if succeed
+	 * @return mixed false or new article id
 	 */
 	public function add($name, $description, $keywords, $content, $category, $permissions) {
 		if (!self::_check($name, $description, $keywords))
@@ -256,7 +256,7 @@ class Article
 		Files::mvDir(UPLOAD_ARTICLE_TMP, UPLOAD_ARTICLE.$id."/", true);
 
 		Message::add(Lang::get("SAVED"));
-		return true;
+		return $id;
 	}
 
 	/**

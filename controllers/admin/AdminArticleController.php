@@ -158,10 +158,10 @@ class AdminArticleController extends Controller
 
 
 		if (isset($_POST['name'])) {
-			if (Article::add($_POST['name'], $_POST['description'], $_POST['keywords'], $_POST['content'],
-			    $_POST['category'], $_POST['comments'])) {
+			if (($id = Article::add($_POST['name'], $_POST['description'], $_POST['keywords'], $_POST['content'],
+			    $_POST['category'], $_POST['comments']))) {
 				$this->view = false;
-				$this->redirect(Url::get("admin", "article"), 2);
+				$this->redirect(Url::get("article", $id), 2);
 			}
 			return;
 		}
