@@ -76,10 +76,17 @@ class Files
 	 *
 	 * @param string $source path to source dir
 	 * @param string $target path to target dir
+	 * @param boolean $replace if true and target exists, rewrite it, else return false
 	 *
-	 * @return boolean true or false
+	 * @return boolean true if succeed or source doesn't exist/isn't dir
 	 */
-	public static function mvDir($source, $target) {
+	public static function mvDir($source, $target, $replace = false) {
+		if (!is_dir($source))
+			return true;
+		if (file_exists($target)) {
+			if ($replace && !self::removeDir($target))
+				return false;
+		}
 		return rename($source, $target);
 	}
 
@@ -93,6 +100,8 @@ class Files
 		if (!is_dir($dir))
 			return false;
 		$obj = scandir($dir);
+		if (!$obj)
+			return false;
 		foreach($obj as $o) {
 			if ($o != "." && $o != "..") {
 				if (filetype($dir."/".$o) == "dir")
@@ -101,9 +110,7 @@ class Files
 					unlink($dir."/".$o);
 			}
 		}
-		rmdir($dir);
-
-		return true;
+		return rmdir($dir);
 	}
 
 	/**
