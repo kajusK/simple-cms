@@ -48,7 +48,7 @@ class Error
 	 *
 	 * @param string $message
 	 * @param if show and DEBUG are true, show message
-	 */	
+	 */
 	public static function log($message, $show=true) {
 		if ($show && defined('DEBUG') && DEBUG)
 			echo $message;
@@ -100,7 +100,7 @@ class Error
 	/**
 	 * Get error string
 	 *
-	 * @param int $errno error code 
+	 * @param int $errno error code
 	 * @return string error name
 	 */
 	private static function _getErrorString($errno) {
