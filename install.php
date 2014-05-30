@@ -64,6 +64,7 @@ CREATE TABLE `comments` (
   `nickname` char(20) COLLATE utf8_bin NOT NULL,
   `text` text COLLATE utf8_bin NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `ip` varbinary(16) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `article_id` (`article_id`),
   CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`)
