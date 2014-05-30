@@ -164,8 +164,10 @@ class Db
 		}
 
 		$stmt = self::$mysqli->prepare($query);
-		if ($stmt == false)
+		if ($stmt == false) {
+			Error::log("DB error - ".self::$mysqli->error);
 			return false;
+		}
 
 		if ($params) {
 			$_params = array();
@@ -176,6 +178,8 @@ class Db
 		}
 
 		$stmt->execute();
+		if ($stmt->error)
+			Error::log("DB error - ".$stmt->error);
 
 		self::$result = $stmt->get_result();
 		self::$rows_affected = $stmt->affected_rows;
