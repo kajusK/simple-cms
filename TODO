@@ -1,9 +1,5 @@
 RSS channel
 
-comments:
-	log user ip
-	prohibite my username - different than admin due to security
-
 editor:
 	add comments (delete/modify/ban) and categories control
 	adding images - full and thumbnail

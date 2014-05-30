@@ -81,11 +81,9 @@ class Comments
 		if ($err)
 			return false;
 
-		$params = array("article_id" => $article_id,
-				"nickname" => $nick,
-				"text" => $text);
-
-		if (Db::insert("comments", $params) == 0) {
+		$ret = Db::query("INSERT INTO `comments` (`article_id`,`nickname`,`text`,`ip`) VALUES (?,?,?,INET_ATON(?))",
+			array($article_id, $nick, $text, Logging::getIP()), true);
+		if ($ret == 0) {
 			Message::add(Lang::get("UNABLE_ADD_COM"));
 			return false;
 		}

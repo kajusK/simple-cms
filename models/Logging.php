@@ -35,6 +35,15 @@ class Logging
 	}
 
 	/**
+	 * Get current visitor's ip
+	 *
+	 * @return string ip
+	 */
+	public static function getIP() {
+		return self::$ip;
+	}
+
+	/**
 	 * Number of unique IPs since midnight
 	 *
 	 * @return int
