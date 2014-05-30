@@ -97,4 +97,8 @@ $lang = array(
 		'EDIT'			=> "Editovat",
 		'ARTICLE_ADD'		=> "Přidat článek",
 		'LOGOUT'		=> "Odhlásit",
+
+		'COUNTER'		=> "Návštěv",
+		'COUNT_TOTAL'		=> "Celkem",
+		'COUNT_TODAY'		=> "Dnes",
 );

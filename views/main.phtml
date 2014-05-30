@@ -50,5 +50,10 @@ defined("IN_CMS") or die("Unauthorized access");
 		<?php if ($this->controller) $this->controller->printView(); ?>
 	</div>
 </div>
+<div id="footer">
+	<?= $msg_count ?> -
+	<?= $msg_count_total?>: <?= $count_total ?>
+	<?= $msg_count_today?>: <?= $count_today ?>
+</div>
 </body>
 </html>

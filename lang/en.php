@@ -96,4 +96,8 @@ $lang = array(
 		'EDIT'			=> "Edit",
 		'ARTICLE_ADD'		=> "Add article",
 		'LOGOUT'		=> "Logout",
+
+		'COUNTER'		=> "Visits",
+		'COUNT_TOTAL'		=> "Total",
+		'COUNT_TODAY'		=> "Today",
 );
