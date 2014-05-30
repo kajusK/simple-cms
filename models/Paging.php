@@ -25,7 +25,7 @@ class Paging
 	 *
 	 * @return mixed false or array of nav items
 	 */
-	public function genNav($count, $page, $per_page, $url_first, $url_prep) {
+	public static function genNav($count, $page, $per_page, $url_first, $url_prep) {
 		$nav = false;
 		$pages = ceil($count / $per_page);
 		if ($pages <= 1)
@@ -65,7 +65,7 @@ class Paging
 	 *
 	 * @return false or int number of first entry
 	 */
-	public function getFrom($page, $per_page, $count)
+	public static function getFrom($page, $per_page, $count)
 	{
 		$from = ($page - 1)*$per_page;
 		if ($from < 0 || $from > $count - 1) {

@@ -20,7 +20,7 @@ class Menu
 	 * @return mixed false or array - each element contain at least ['main'] array
 	 *		and may contain unspecified number of submenus array
 	 */
-	public function get() {
+	public static function get() {
 		$res = Db::query("SELECT name_".Lang::getLang()." AS name, id, parent_id FROM
 				  menu  ORDER BY parent_id, id");
 		if (!$res)
@@ -49,7 +49,7 @@ class Menu
 	 *
 	 * @return mixed array of items or false
 	 */
-	public function getRaw() {
+	public static function getRaw() {
 		return Db::query("SELECT name_".Lang::getLang()." AS name, id FROM menu");
 	}
 
@@ -58,7 +58,7 @@ class Menu
 	 *
 	 * @return mixed array of items or false
 	 */
-	public function getParents() {
+	public static function getParents() {
 		return Db::query("SELECT id, name_".Lang::getLang()." AS name
 				FROM menu WHERE parent_id=0");
 	}
@@ -69,7 +69,7 @@ class Menu
 	 * @param int $id item id
 	 * @return mixed array or false
 	 */
-	public function getItem($id) {
+	public static function getItem($id) {
 		return Db::queryRow("SELECT parent_id, name_".Lang::getLang()." AS name
 			FROM menu WHERE id=?", array($id));
 	}
@@ -80,7 +80,7 @@ class Menu
 	 * @param int $id category id
 	 * @return mixed string or false
 	 */
-	public function getName($id) {
+	public static function getName($id) {
 		$res = Db::queryRow("SELECT name_".Lang::getLang()." AS name FROM
 				  menu  WHERE id=?", array($id));
 
@@ -97,7 +97,7 @@ class Menu
 	 *
 	 * @return bool true if succeed or false
 	 */
-	public function addItem($name, $parent = 0) {
+	public static function addItem($name, $parent = 0) {
 		if (!self::_check($name, $parent))
 			return false;
 
@@ -121,7 +121,7 @@ class Menu
 	 *
 	 * @return bool true if succeed or false
 	 */
-	public function modifyItem($id, $name, $parent) {
+	public static function modifyItem($id, $name, $parent) {
 		if (!self::_check($name, $parent))
 			return false;
 
@@ -143,7 +143,7 @@ class Menu
 	 * @param int $id item id
 	 * @return bool true if succeed or false
 	 */
-	public function deleteItem($id) {
+	public static function deleteItem($id) {
 		if (!self::itemExists($id)) {
 			Message::add(Lang::get('MENU_NO_ITEM'));
 			return false;
@@ -164,7 +164,7 @@ class Menu
 	 * @param int $id item id
 	 * @return bool true if exists, false otherwise
 	 */
-	public function itemExists($id) {
+	public static function itemExists($id) {
 		$res = Db::queryRow("SELECT COUNT(*) FROM menu WHERE id=?", array($id));
 		if ($res == false || $res['COUNT(*)'] < 1)
 			return false;
@@ -180,7 +180,7 @@ class Menu
 	 *
 	 * @return bool true if ok, false otherwise
 	 */
-	private function _check($name, $parent) {
+	private static function _check($name, $parent) {
 		$ret = true;
 		if (strlen($name) < MENU_LENGTH_MIN) {
 			Message::add(Lang::get("MENU_SHORT"));

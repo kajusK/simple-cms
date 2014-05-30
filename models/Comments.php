@@ -20,7 +20,7 @@ class Comments
 	 * @param int $article_id
 	 * @return mixed array of comments or false
 	 */
-	public function getAll($article_id) {
+	public static function getAll($article_id) {
 		return Db::query("SELECT id, nickname, text, date, article_id FROM comments WHERE
 				article_id=? AND visible=TRUE", array($article_id));
 	}
@@ -31,7 +31,7 @@ class Comments
 	 * @param int $comment_id
 	 * @return mixed comment array or false
 	 */
-	public function getOne($comment_id) {
+	public static function getOne($comment_id) {
 		return Db::queryRow("SELECT id, nickname, text, date, article_id FROM comments WHERE
 				visible=TRUE AND id=?", array($comment_id));
 	}
@@ -45,7 +45,7 @@ class Comments
 	 * @param string $year must be current year
 	 * @return boolean true if suceed
 	 */
-	public function add($article_id, $nick, $text, $year) {
+	public static function add($article_id, $nick, $text, $year) {
 		if (self::allowed($article_id) <= 0) {
 			Message::add(Lang::get("COMMENTS_NOT_ALLOWED"));
 			return true;
@@ -102,7 +102,7 @@ class Comments
 	 *		-1 if visible and adding not allowed
 	 *		false elsewhere
 	 */
-	public function allowed($article_id) {
+	public static function allowed($article_id) {
 		$res = Db::queryRow("SELECT com_allowed, com_show FROM articles WHERE id=?", array($article_id));
 		if ($res == false)
 			return false;
@@ -124,7 +124,7 @@ class Comments
 	 *			 anything else - comments not permitted
 	 * @return boolean
 	 */
-	public function setPermissions($article_id, $permission) {
+	public static function setPermissions($article_id, $permission) {
 		$params = array('com_allowed' => true, 'com_show' => true);
 		if ($permission == -1) {
 			$params['com_allowed'] = false;

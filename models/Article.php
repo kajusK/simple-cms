@@ -21,7 +21,7 @@ class Article
 	 * @param boolean $expand if true, expand text between []
 	 * @return mixed false or array of article content
 	 */
-	public function getArticle($id, $expand=true) {
+	public static function getArticle($id, $expand=true) {
 		$ret = Db::queryRow("SELECT a.id,l.title,l.description,l.content,l.keywords,l.url,a.date_created as date FROM
 		       	  articles_".Lang::getLang()." AS l JOIN articles AS a ON l.id=a.id WHERE l.id=?", array($id));
 		if (!$expand)
@@ -40,7 +40,7 @@ class Article
 	 * @param int $id article id
 	 * @return mixed false or string
 	 */
-	public function getName($id) {
+	public static function getName($id) {
 		$ret = Db::queryRow("SELECT title FROM articles_".Lang::getLang()." WHERE id=?", array($id));
 		if (!$ret)
 			return false;
@@ -53,7 +53,7 @@ class Article
 	 * @param int $id article id
 	 * @return mixed false or category id
 	 */
-	public function getCategory($id) {
+	public static function getCategory($id) {
 		$ret = Db::queryRow("SELECT menu_id FROM articles WHERE id=?", array($id));
 		if (!$ret)
 			return false;
@@ -67,7 +67,7 @@ class Article
 	 * @param int $id article id
 	 * @return mixed false or url
 	 */
-	public function getUrl($id) {
+	public static function getUrl($id) {
 		$ret = Db::queryRow("SELECT url FROM articles_".Lang::getLang()." WHERE id=?", array($id));
 		if (!$ret)
 			return false;
@@ -80,7 +80,7 @@ class Article
 	 * @param int $id article id
 	 * @return boolean true if exists
 	 */
-	public function exists($id) {
+	public static function exists($id) {
 		$ret = Db::queryRow("SELECT COUNT(*) FROM articles_".Lang::getLang()." WHERE id=?", array($id));
 		if (!$ret)
 			return false;
@@ -97,7 +97,7 @@ class Article
 	 * @param int $id article id
 	 * @return boolean true if exists
 	 */
-	public function existsIgnoreLang($id) {
+	public static function existsIgnoreLang($id) {
 		$ret = Db::queryRow("SELECT COUNT(*) FROM articles WHERE id=?", array($id));
 		if (!$ret)
 			return false;
@@ -112,7 +112,7 @@ class Article
 	 * @param int $id article id
 	 * @return array of language names
 	 */
-	public function translAvailable($id) {
+	public static function translAvailable($id) {
 		$query = Db::query("SHOW TABLES LIKE 'articles\_%'");
 		if (!$query)
 			return array();
@@ -137,7 +137,7 @@ class Article
 	 *
 	 * @return mixed array of articles or false
 	 */
-	public function getPage($from, $items, $cat_id = false) {
+	public static function getPage($from, $items, $cat_id = false) {
 		$where = "";
 		$in = self::_getIn($cat_id);
 		if ($in)
@@ -155,7 +155,7 @@ class Article
 	 *		of given menu_id and its submenus
 	 * @return mixed false or array
 	 */
-	public function countAll($cat_id = false) {
+	public static function countAll($cat_id = false) {
 		$where = "";
 		$in = self::_getIn($cat_id);
 		if ($in)
@@ -181,7 +181,7 @@ class Article
 	 *
 	 * @return boolean true if succeed
 	 */
-	public function modify($id, $name, $description, $keywords, $content, $category) {
+	public static function modify($id, $name, $description, $keywords, $content, $category) {
 		if (!self::existsIgnoreLang($id)) {
 			Message::add(Lang::get("NO_ARTICLE"));
 			return false;
@@ -227,7 +227,7 @@ class Article
 	 *
 	 * @return mixed false or new article id
 	 */
-	public function add($name, $description, $keywords, $content, $category, $permissions) {
+	public static function add($name, $description, $keywords, $content, $category, $permissions) {
 		if (!self::_check($name, $description, $keywords))
 			return false;
 
@@ -262,7 +262,7 @@ class Article
 	/**
 	 * Delete article from database
 	 */
-	public function remove($id) {
+	public static function remove($id) {
 		if (!self::exists($id)) {
 			Message::add(Lang::get("NO_ARTICLE"));
 			return false;
@@ -284,7 +284,7 @@ class Article
 	 *		of given menu_id and its submenus
 	 * @return mixed false or array
 	 */
-	private function _getIn($cat_id) {
+	private static function _getIn($cat_id) {
 		if ($cat_id) {
 			$id = Db::queryRow("SELECT parent_id FROM menu WHERE id=?", array($cat_id));
 			if (!$id)
@@ -318,7 +318,7 @@ class Article
 	 * @param string $keywords
 	 * @return boolean true if correct
 	 */
-	private function _check($name, $description, $keywords) {
+	private static function _check($name, $description, $keywords) {
 		$err = true;
 		if (strlen($name) > TITLE_LENGTH_MAX) {
 			Message::add(Lang::get("TITLE_LONG"));
@@ -351,7 +351,7 @@ class Article
 	 *
 	 * @return boolean true if succeed
 	 */
-	private function _addTranslation($id, $url, $name, $description, $keywords, $content) {
+	private static function _addTranslation($id, $url, $name, $description, $keywords, $content) {
 		return Db::insert("articles_".Lang::getLang(), array('id' => $id,
 					'url' => $url,
 					'title' => $name,
@@ -367,7 +367,7 @@ class Article
 	 * @param string $string
 	 * @return string
 	 */
-	private function _expandPaths($id, $string) {
+	private static function _expandPaths($id, $string) {
 		$path = Url::getBase()."/".UPLOAD_ARTICLE."$id";
 
 		return preg_replace("/\[(.*?)\]/is", "$path/$1", $string);
@@ -381,7 +381,7 @@ class Article
 	 * @param string $string
 	 * @return mixed NULL or string
 	 */
-	private function _prepareLink($string) {
+	private static function _prepareLink($string) {
 		$text = self::_strtr_utf8($string, 'áäčďéěëíµňôóöŕřšťúůüýžÁÄČĎÉĚËÍĄŇÓÖÔŘŔŠŤÚŮÜÝŽ', 'aacdeeeilnooorrstuuuyzaacdeeelinooorrstuuuyz');
 		$text = preg_replace("/[^a-zA-z0-9\s]/", "", $text);
 		return preg_replace("/[^a-zA-Z0-9]/", "_", $text);
@@ -390,7 +390,7 @@ class Article
 	/**
 	 * Strtr utf8 function found somewhere on the internet
 	 */
-	private function _strtr_utf8($str, $from, $to) {
+	private static function _strtr_utf8($str, $from, $to) {
 		$keys = array();
 		$values = array();
 		preg_match_all('/./u', $from, $keys);
