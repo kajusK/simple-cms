@@ -44,7 +44,7 @@ require_once "define.php";
 //set timezone
 if (date_default_timezone_set(TIMEZONE) == false) {
 	date_default_timezone_set("UTC");
-	Logging::warning("UTC timezone used");
+	Error::log("WARNING - UTC timezone used");
 }
 
 //load error logger
