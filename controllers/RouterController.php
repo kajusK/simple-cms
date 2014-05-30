@@ -50,6 +50,9 @@ class RouterController extends Controller
 		}
 		register_shutdown_function("Db::close");
 
+		/* log user's visit */
+		Logging::logVisit();
+
 		$this->menu = new MenuController();
 		$this->data['lang_switch'] = $this->_langSwitch($url);
 
