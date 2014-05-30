@@ -35,7 +35,7 @@ class Lang
 		}
 
 		if (!self::isLang(self::$lang)) {
-			Logging::error("No language file for ".self::$lang);
+			Error::log("No language file for ".self::$lang);
 			return false;
 		}
 
@@ -58,7 +58,7 @@ class Lang
 	*/
 	public static function get($key) {
 		if (!isset(self::$transl[$key])) {
-			Logging::error("Requested translation of key '$key'");
+			Error::log("Requested translation of key '$key'");
 			return "Unknown";
 		}
 

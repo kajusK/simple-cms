@@ -32,6 +32,7 @@ class Db
 
 		self::$mysqli = new mysqli($host, $user, $pass, $database, $port);
 		if (self::$mysqli->connect_errno) {
+			Error::log("Unable to connect to DB - ".self::$mysqli->connect_error);
 			return false;
 		}
 		self::$mysqli->set_charset('utf8');

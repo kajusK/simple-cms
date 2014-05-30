@@ -19,9 +19,9 @@ class Error
 	 * Init error handling
 	 */
 	public static function init() {
-		set_error_handler('Error::_errorHandler');
-		set_exception_handler('Error::_exceptionHandler');
-		register_shutdown_function('Error::_fatalHandler');
+		set_error_handler('Error::errorHandler');
+		set_exception_handler('Error::exceptionHandler');
+		register_shutdown_function('Error::fatalHandler');
 
 		if (defined("DEBUG") && DEBUG == true)
 			error_reporting(-1);
@@ -44,14 +44,27 @@ class Error
 	}
 
 	/**
+	 * Log message into log file
+	 *
+	 * @param string $message
+	 */	
+	public static function log($message) {
+		$ip = $_SERVER['REMOTE_ADDR'];
+		$request = $_SERVER['REQUEST_URI'];
+		$time = date("d.m. Y - H:i");
+		$msg = "$time - $ip - $request :: $message\n";
+		error_log($msg, 3, ERROR_LOG_FILE);
+	}
+
+	/**
 	 * Simple error handler for set_error_handler
 	 */
-	public static function _errorHandler($errno, $errstr, $errfile, $errline) {
+	public static function errorHandler($errno, $errstr, $errfile, $errline) {
 		if (!($errno & self::$log_mask))
 			return false;
 
 		$msg = self::_getErrorString($errno).":$errstr:$errfile,line $errline";
-		self::_log($msg);
+		self::log($msg);
 
 		if ($errno & error_reporting())
 			echo $msg;
@@ -60,8 +73,8 @@ class Error
 	/**
 	 * Simple handler for uncatched exceptions
 	 */
-	public static function _exceptionHandler(Exception $e) {
-		self::_log("Unhandled exception: ".$e->getMessage());
+	public static function exceptionHandler(Exception $e) {
+		self::log("Unhandled exception: ".$e->getMessage());
 		header("HTTP/1.1 500 Internal Server Error");
 		echo "<h1>Sorry, error has occured</h1>";
 	}
@@ -69,7 +82,7 @@ class Error
 	/**
 	 * Handle fatal errors, log, show simple message, and exit
 	 */
-	public static function _fatalHandler() {
+	public static function fatalHandler() {
 		$error = error_get_last();
 		if (!$error || !($error['type'] & (E_ERROR | E_PARSE | E_CORE_ERROR |  E_COMPILE_ERROR | E_USER_ERROR | E_PARSE)))
 			return;
@@ -105,18 +118,5 @@ class Error
 			case E_USER_DEPRECATED: return 'E_USER_DEPRECATED';
 		}
 		return "UNKNOWN";
-	}
-
-	/**
-	 * Log message into log file
-	 *
-	 * @param string $message
-	 */	
-	private static function _log($message) {
-		$ip = $_SERVER['REMOTE_ADDR'];
-		$request = $_SERVER['REQUEST_URI'];
-		$time = date("d.m. Y - H:i");
-		$msg = "$time - $ip - $request :: $message\n";
-		error_log($msg, 3, ERROR_LOG_FILE);
 	}
 }
