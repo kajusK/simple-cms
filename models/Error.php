@@ -47,8 +47,12 @@ class Error
 	 * Log message into log file
 	 *
 	 * @param string $message
+	 * @param if show and DEBUG are true, show message
 	 */	
-	public static function log($message) {
+	public static function log($message, $show=true) {
+		if ($show && defined('DEBUG') && DEBUG)
+			echo $message;
+
 		$ip = $_SERVER['REMOTE_ADDR'];
 		$request = $_SERVER['REQUEST_URI'];
 		$time = date("d.m. Y - H:i");
@@ -64,7 +68,7 @@ class Error
 			return false;
 
 		$msg = self::_getErrorString($errno).":$errstr:$errfile,line $errline";
-		self::log($msg);
+		self::log($msg, false);
 
 		if ($errno & error_reporting())
 			echo $msg;
