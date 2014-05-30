@@ -209,7 +209,7 @@ class Article
 
 		//same problem
 		Db::update("articles", array('id' => $id), array('menu_id' => $category,
-					'date_modified' => date ('Y-m-d H:m')));
+					'date_modified' => date('Y-m-d H:i:s')));
 
 		Message::add(Lang::get("SAVED"));
 		return true;
