@@ -21,7 +21,6 @@ SET foreign_key_checks = 0;
 SET time_zone = '+02:00';
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-DROP TABLE IF EXISTS `articles`;
 CREATE TABLE `articles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `menu_id` smallint(5) unsigned NOT NULL,
@@ -36,7 +35,6 @@ CREATE TABLE `articles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-DROP TABLE IF EXISTS `articles_cs`;
 CREATE TABLE `articles_cs` (
   `id` int(10) unsigned NOT NULL,
   `url` varchar(50) COLLATE utf8_bin NOT NULL,
@@ -48,7 +46,6 @@ CREATE TABLE `articles_cs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-DROP TABLE IF EXISTS `articles_en`;
 CREATE TABLE `articles_en` (
   `id` int(10) unsigned NOT NULL,
   `url` varchar(50) COLLATE utf8_bin NOT NULL,
@@ -60,7 +57,6 @@ CREATE TABLE `articles_en` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `article_id` int(10) unsigned NOT NULL,
@@ -74,13 +70,21 @@ CREATE TABLE `comments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` smallint(5) unsigned NOT NULL,
   `name_cs` varchar(30) COLLATE utf8_bin NOT NULL,
   `name_en` varchar(30) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE `log` (
+  `ip` varbinary(16) NOT NULL,
+  `visit_first` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `visit_last` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `user_agent` varchar(50) COLLATE utf8_bin NOT NULL,
+  `lang` char(3) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 ";
 
