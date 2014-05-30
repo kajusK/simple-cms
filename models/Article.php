@@ -254,6 +254,7 @@ class Article
 
 		Comments::setPermissions($id, $permissions);
 		Files::mvDir(UPLOAD_ARTICLE_TMP, UPLOAD_ARTICLE.$id."/", true);
+		Rss::gen();
 
 		Message::add(Lang::get("SAVED"));
 		return $id;

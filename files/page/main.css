@@ -10,6 +10,7 @@ body {
 }
 
 #wrapper {
+	position: relative;
 	display: block;
 	min-width: 400px;
 	margin-left: 5%;
@@ -30,6 +31,15 @@ body {
 }
 
 #footer {
+}
+
+#counter {
+	text-align: center;
+}
+
+#rss {
+	position: absolute;
+	right: 0px;
 }
 
 /* *********************************************************** */

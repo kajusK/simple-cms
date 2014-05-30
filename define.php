@@ -12,6 +12,7 @@ defined("IN_CMS") or die("Unauthorized access");
 define("ERROR_LOG_FILE", "files/error.log");
 define("UPLOAD_ARTICLE", "files/articles/");
 define("UPLOAD_ARTICLE_TMP", "files/articles/tmp/");
+define("RSS_FEED", "files/rss/");
 
 define("TITLE_LENGTH_MAX", 50);
 define("TITLE_LENGTH_MIN", 2);

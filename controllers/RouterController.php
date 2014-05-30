@@ -52,7 +52,7 @@ class RouterController extends Controller
 
 		/* log user's visit */
 		Logging::logVisit();
-		$this->_loadCounter();
+		$this->_loadFooter();
 
 		$this->menu = new MenuController();
 		$this->data['lang_switch'] = $this->_langSwitch($url);
@@ -163,14 +163,15 @@ class RouterController extends Controller
 	}
 
 	/**
-	 * Load data for page (visitors) counter
+	 * Load data for page footer - counter and rss
 	 */
-	private function _loadCounter() {
+	private function _loadFooter() {
 		$this->data['count_total'] = Logging::visitorsTotal();
 		$this->data['count_today'] = Logging::visitorsToday();
-
 		$this->data['msg_count'] = Lang::get('COUNTER');
 		$this->data['msg_count_total'] = Lang::get('COUNT_TOTAL');
 		$this->data['msg_count_today'] = Lang::get('COUNT_TODAY');
+
+		$this->data['rss_link'] = Url::get("rss");
 	}
 }

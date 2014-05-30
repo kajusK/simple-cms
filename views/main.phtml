@@ -26,6 +26,7 @@ defined("IN_CMS") or die("Unauthorized access");
 	<link rel="stylesheet" type="text/css" href="<?= $base ?>files/page/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?= $base ?>files/page/menu.css" />
 	<link rel="stylesheet" type="text/css" href="<?= $base ?>files/page/theme.css" />
+	<link rel="alternate" href="<?= $rss_link ?>" title="My RSS feed" type="application/rss+xml" />	
 	<link rel="shortcut icon" type="image/x-icon" href="<?= $base ?>files/page/favicon.ico"/>
 </head>
 <body>
@@ -49,11 +50,14 @@ defined("IN_CMS") or die("Unauthorized access");
 
 		<?php if ($this->controller) $this->controller->printView(); ?>
 	</div>
-</div>
-<div id="footer">
-	<?= $msg_count ?> -
-	<?= $msg_count_total?>: <?= $count_total ?>
-	<?= $msg_count_today?>: <?= $count_today ?>
+	<div id="footer">
+		<a href="<?= $rss_link ?>"><img id="rss" alt="RSS" src="<?= $base ?>files/page/rss.gif" /></a>
+		<div id="counter">
+			<?= $msg_count ?> -
+			<?= $msg_count_total?>: <?= $count_total ?>
+			<?= $msg_count_today?>: <?= $count_today ?>
+		</div>
+	</div>
 </div>
 </body>
 </html>

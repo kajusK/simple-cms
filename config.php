@@ -30,6 +30,7 @@ define("DB_PASS", "cms");
 define("PER_PAGE", 10);
 define("ADMIN_PER_PAGE", 40);
 define("NAV_MAX_COUNT", 10);
+define("RSS_COUNT", 10);
 
 //all supported language versions of Page title
 define("TITLE_CS", "Kajusovy stránečky");
