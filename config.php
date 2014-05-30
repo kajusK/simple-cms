@@ -6,10 +6,9 @@
 //no direct access
 defined("IN_CMS") or die("Unauthorized access");
 
-//possible values: none, simple, medium, all
+//recoveable errors logging
+//possible values: none, simple, all
 define("ERROR_LOGGING", "all");
-//error level to stop script executing
-define("ERROR_STOP", E_ERROR | E_PARSE);
 
 //local language, change to desired one
 define("LOCAL_LANG", "cs");

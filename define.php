@@ -9,6 +9,7 @@
 //no direct access
 defined("IN_CMS") or die("Unauthorized access");
 
+define("ERROR_LOG_FILE", "files/error.log");
 define("UPLOAD_ARTICLE", "files/articles/");
 define("UPLOAD_ARTICLE_TMP", "files/articles/tmp/");
 

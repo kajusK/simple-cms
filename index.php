@@ -47,6 +47,8 @@ if (date_default_timezone_set(TIMEZONE) == false) {
 	Logging::warning("UTC timezone used");
 }
 
+//load error logger
+Error::init();
 
 //get part of url after current dir
 $url = substr($_SERVER['REQUEST_URI'], strlen(dirname($_SERVER['SCRIPT_NAME'])));
