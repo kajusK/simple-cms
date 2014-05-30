@@ -37,7 +37,7 @@ class CategoryController extends Controller
 			return;
 		}
 
-		$this->head = array('title' => $name, 'keywords' => "", 'description' => "");
+		$this->head = array('title' => $name, 'keywords' => "", 'description' => constant("DESCRIPTION_".strtoupper(Lang::getLang())));
 
 		$page = 1;
 		if (isset($param[1])) {
@@ -58,7 +58,7 @@ class CategoryController extends Controller
 	 */
 	private function _all($param) {
 		$this->head = array('title' => constant("TITLE_".strtoupper(Lang::getLang())),
-			       	'keywords' => "", 'description' => "");
+			       	'keywords' => "", 'description' => constant("DESCRIPTION_".strtoupper(Lang::getLang())));
 
 		if (count($param) == 0) {
 			$this->_genPaging(false, 1, PER_PAGE);

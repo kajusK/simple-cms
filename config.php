@@ -35,5 +35,7 @@ define("NAV_MAX_COUNT", 10);
 define("TITLE_CS", "Kajusovy stránečky");
 define("TITLE_EN", "Kajus's pages");
 
+define("DESCRIPTION_CS", "Stránky o Linuxu, robotice, programování...");
+define("DESCRIPTION_EN", "Pages about Linuxu, robotics, programming...");
 //uncomment to show all possible errors
 define("DEBUG", true);
