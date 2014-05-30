@@ -56,13 +56,16 @@ class Db
 	 *
 	 * @param string $query string, where params are replaced by ?
 	 * @param array $params params to use in query, size of array must be equal to number of ?
-	 * @return mixed array of result's arrays or false
+	 * @param bool $rows if true, return number of rows instead
+	 * @return mixed array of result's arrays or false or int (if $rows)
 	 */
-	public static function query($query, $params = array()) {
+	public static function query($query, $params = array(), $rows = false) {
 		if (!self::_genQuery($query, $params))
 			return false;
 
-		return self::$result->fetch_all(MYSQLI_ASSOC);
+		if (!$rows)
+			return self::$result->fetch_all(MYSQLI_ASSOC);
+		return self::rowsAffected();
 	}
 
 	/**
