@@ -14,7 +14,7 @@ defined("IN_CMS") or die("Unauthorized access");
  */
 class Error
 {
-	static $log_mask = 'E_ALL';
+	private static $log_mask = 'E_ALL';
 	/**
 	 * Init error handling
 	 */
