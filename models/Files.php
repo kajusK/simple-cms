@@ -16,59 +16,65 @@ class Files
 	 *
 	 * @param string $dir to save uploaded files to
 	 * @param array $files files in $_FILES like structure (for multiple files!)
+	 *
+	 * @return boolean
 	 */
 	public static function upload($dir, $files) {
-		if (!is_dir($dir) && !self::_createDir($dir))
+		if ($files['name'][0] == "")
+			return true;
+		if (!is_dir($dir) && !self::newDir($dir))
 			return false;
 
+		$ret = true;
 		for ($i = 0; $i < count($files['name']); $i++) {
-			if ($files['error'][$i] != 0)
+			if ($files['error'][$i] != 0) {
+				$ret = false;
 				continue;
+			}
 			$file = self::_escapeName($files['name'][$i]);
 			if (file_exists($dir.$file)) {
 				Message::add(Lang::get("FILE_EXISTS", $file));
 				continue;
 			}
+			if (!move_uploaded_file($files['tmp_name'][$i], $dir.$file))
+				$ret = false;
+		}
 
-			move_uploaded_file($files['tmp_name'][$i], $dir.$file);
+		if (!$ret) {
+			Message::add(Lang::get("UPLOAD_ERROR"));
+			return false;
 		}
 		Message::add(Lang::get("UPLOAD_FINISHED"));
-	}
-
-	/**
-	 * Delete file
-	 *
-	 * @param string $filename
-	 * @return boolean true if file exists no more
-	 */
-	public static function remove($filename) {
-		if (is_file($filename))
-			return unlink($filename);
 		return true;
 	}
 
 	/**
-	 * Get all filenames in directory
-	 * Directories are ignored
+	 * Delete file or directory
 	 *
-	 * @param string $dirname
-	 * @return mixed false or array of filenames
+	 * @param string $filename
+	 * @return boolean
 	 */
-	public static function getFilenames($dirname) {
-		if (!is_dir($dirname))
-			return false;
+	public static function remove($filename) {
+		if (is_file($filename))
+			return unlink($filename);
+		else if (is_dir($filename))
+			return self::_rmDir($filename);
+		return true;
+	}
 
-		$files = array();
-		if (!($handle = opendir($dirname)))
-			return false;
-
-		while (($entry = readdir($handle)) !== false) {
-			if ($entry != "." && $entry != ".." && !is_dir($dirname.$entry))
-				$files[] = $entry;
+	/**
+	 * Create new directory (or more directories if parent doesn't exist)
+	 *
+	 * @param string $target path
+	 * @return boolean
+	 */
+	public static function newDir($target) {
+		if (is_dir($target) || mkdir($target, 0777, true)) {
+			Message::add(Lang::get('DIR_CREATED', $target));
+			return true;
 		}
-		closedir($handle);
-
-		return $files;
+		Message::add(Lang::get('DIR_CREATE_FAILED'));
+		return false;
 	}
 
 	/**
@@ -84,11 +90,43 @@ class Files
 		if (!is_dir($source))
 			return true;
 		if (file_exists($target)) {
-			if ($replace && !self::removeDir($target))
+			if ($replace && !self::remove($target))
 				return false;
 		}
 		return rename($source, $target);
 	}
+
+	/**
+	 * Get array of subdirs (and files)
+	 *
+	 * @param string $dir path to source directory
+	 * @param string $prefix prefix to add before dirname
+	 *
+	 * @return array of dirs (including ./)
+	 */
+	public static function getFiles($dir, $dirs = false, $prefix = './') {
+		if (!is_dir($dir) || !($obj = scandir($dir))) {
+			if ($dirs)
+				return array('files' => array(), 'dirs' => array());
+			return array();
+		}
+
+		$array['dirs'] = array($prefix);
+		$array['files'] = array();
+		foreach($obj as $o) {
+			if ($o == "." || $o == "..")
+				continue;
+			$str = $dir."/".$o;
+			if (is_dir($str))
+				$array = array_merge_recursive($array, self::getFiles($str, $dirs, $prefix.$o."/"));
+			else if (is_file($str))
+				$array['files'][] = $prefix.$o;
+		}
+		if ($dirs)
+			return $array;
+		return $array['files'];
+	}
+
 
 	/**
 	 * Remove directory
@@ -96,16 +134,13 @@ class Files
 	 * @param source $dir directory to delete
 	 * @return boolean
 	 */
-	public static function removeDir($dir) {
-		if (!is_dir($dir))
-			return false;
-		$obj = scandir($dir);
-		if (!$obj)
+	private static function _rmDir($dir) {
+		if (!($obj = scandir($dir)))
 			return false;
 		foreach($obj as $o) {
 			if ($o != "." && $o != "..") {
 				if (filetype($dir."/".$o) == "dir")
-					self::removeDir($dir."/".$o);
+					self::_rmDir($dir."/".$o);
 				else
 					unlink($dir."/".$o);
 			}
@@ -121,20 +156,5 @@ class Files
 	 */
 	private static function _escapeName($file) {
 		return str_replace("/", "_", $file);
-	}
-
-	/**
-	 * Create dir if doesn't exist
-	 *
-	 * @param string $dir
-	 * @return boolean
-	 */
-	private static function _createDir($dir) {
-		if (is_file($dir))
-			return false;
-		if (is_dir($dir))
-			return true;
-
-		return mkdir($dir, 0777, true);
 	}
 }

@@ -76,16 +76,43 @@ class AdminFilesController extends Controller
 		$this->view = "admin/files";
 		$this->data = array('upload' => Lang::get("UPLOAD_FILES"),
 				'files_edit' => Lang::get("EDIT_FILES"),
+				'new_dir' => Lang::get("NEW_DIR"),
 				'send' => Lang::get("SEND"),
 				'name' => Lang::get("FILENAME"),
-				'delete' => Lang::get("DELETE"));
+				'delete' => Lang::get("DELETE"),
+				'dir_selected' => "./");
 
 		if (isset($_POST['upload']))
-			Files::upload($target, $_FILES['upload']);
+			$this->_upload($target);
+		else if (isset($_POST['new_dir']))
+			$this->_newDir($target);
 		else if (isset($_POST['delete']))
 			$this->_delete($target);
 
-		$this->data['files'] = Files::getFilenames($target);
+		$ret = Files::getFiles($target, true);
+		if (count($ret['dirs']) == 0)
+			$ret['dirs'][] = './';
+		$this->data['dirs'] = $ret['dirs'];
+		$this->data['files'] = $ret['files'];
+	}
+
+	/**
+	 * Create new subdir
+	 *
+	 * @param string $target target directory
+	 */
+	private function _newDir($target) {
+		Files::newDir($target.$_POST['dir']);
+	}
+
+	/**
+	 * Upload all selected files
+	 *
+	 * @param string $target target directory
+	 */
+	private function _upload($target) {
+		$this->data['dir_selected'] = $_POST['dir'];
+		Files::upload($target.$_POST['dir'], $_FILES['upload']);
 	}
 
 	/**

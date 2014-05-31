@@ -273,7 +273,7 @@ class Article
 		if (!self::translAvailable($id))
 			Db::remove("articles", array('id' => $id));
 
-		Files::removeDir(UPLOAD_ARTICLE.$id);
+		Files::remove(UPLOAD_ARTICLE.$id);
 		Message::add(Lang::get("ARTICLE_DELETED"));
 		return true;
 	}

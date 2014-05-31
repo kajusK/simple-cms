@@ -16,16 +16,34 @@ defined("IN_CMS") or die("Unauthorized access");
 		<b><?= $upload ?>:</b>
 		<input type="file" name="upload[]" multiple="multiple"/>
 		<input type="hidden" name="upload" value="1"/>
+		<select name="dir">
+			<?php foreach ($dirs as $d) : ?>
+			<option value="<?= $d ?>" <?php if ($dir_selected == $d): ?>selected="selected"<?php endif ?>><?= $d ?></option>
+			<?php endforeach ?>
+		</select>
 		<input type="submit" value="<?= $send ?>"/>
 	</form>
 
-	<?php if ($files) : ?>
+	<form action="" method="post">
+		<b><?= $new_dir ?>:</b>
+		<input type="text" name="dir"/>
+		<input type="hidden" name="new_dir" value="1"/>
+		<input type="submit" value="<?= $send ?>"/>
+	</form>
+
+	<?php if ($files || $dirs) : ?>
 	<br/>
 	<form action="" method="post"><table>
 		<tr>
 			<td><?= $name ?></td>
 			<td><?= $delete ?></td>
 		</tr>
+		<?php foreach ($dirs as $d) : if ($d != "./") :?>
+		<tr>
+			<td><?= $d ?></td>
+			<td><input type="checkbox" name="files[<?= $d ?>]"/></td>
+		</tr>
+		<?php endif; endforeach ?>
 		<?php foreach ($files as $f) :?>
 		<tr>
 			<td><?= $f ?></td>
