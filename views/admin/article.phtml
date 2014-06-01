@@ -24,9 +24,9 @@ defined("IN_CMS") or die("Unauthorized access");
 
 	<b><?= $article_category ?>:</b>
 	<select name="category">
-		<?php foreach ($category as $c): ?>
+		<?php foreach ($category as $c): if ($c['name']) : ?>
 		<option value="<?= $c['id'] ?>"<?php if ($c['id'] == $cat_id) : ?> selected="selected"<?php endif ?>><?= $c['name'] ?></option>
-		<?php endforeach ?>
+		<?php endif; endforeach ?>
 	</select>
 
 	<b><?= $com_settings ?>:</b>
