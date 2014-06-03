@@ -16,7 +16,7 @@ define("RSS_FEED", "files/rss/");
 
 define("TITLE_LENGTH_MAX", 50);
 define("TITLE_LENGTH_MIN", 2);
-define("DESC_LENGTH", 250);
+define("DESC_LENGTH", 1000);
 define("KEYWORDS_LENGTH", 50);
 define("URL_LENGTH", 50);
 define("MENU_LENGTH_MIN", 2);

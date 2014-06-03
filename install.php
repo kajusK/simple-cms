@@ -39,7 +39,7 @@ CREATE TABLE `articles_cs` (
   `id` int(10) unsigned NOT NULL,
   `url` varchar(50) COLLATE utf8_bin NOT NULL,
   `title` varchar(50) COLLATE utf8_bin NOT NULL,
-  `description` varchar(250) COLLATE utf8_bin NOT NULL,
+  `description` text COLLATE utf8_bin NOT NULL,
   `content` text COLLATE utf8_bin NOT NULL,
   `keywords` varchar(50) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
@@ -50,7 +50,7 @@ CREATE TABLE `articles_en` (
   `id` int(10) unsigned NOT NULL,
   `url` varchar(50) COLLATE utf8_bin NOT NULL,
   `title` varchar(50) COLLATE utf8_bin NOT NULL,
-  `description` varchar(250) COLLATE utf8_bin NOT NULL,
+  `description` text COLLATE utf8_bin NOT NULL,
   `content` text COLLATE utf8_bin NOT NULL,
   `keywords` varchar(50) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
