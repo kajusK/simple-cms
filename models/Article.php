@@ -371,7 +371,7 @@ class Article
 	private static function _expandPaths($id, $string) {
 		$path = Url::getBase()."/".UPLOAD_ARTICLE."$id";
 
-		return preg_replace("/\[(.*?)\]/is", "$path/$1", $string);
+		return preg_replace("/(\[(.*?)\])(?!>|[^<>]*<\/pre)/", "$path/$2", $string);
 	}
 
 	/**
