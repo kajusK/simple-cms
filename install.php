@@ -24,11 +24,11 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 CREATE TABLE `articles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `menu_id` smallint(5) unsigned NOT NULL,
+  `serial_id` smallint(5) unsigned NOT NULL DEFAULT '0',
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `com_allowed` bit(1) NOT NULL DEFAULT b'1',
   `com_show` bit(1) NOT NULL DEFAULT b'1',
-  `tags` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `menu_id` (`menu_id`),
   CONSTRAINT `articles_ibfk_1` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`)
@@ -70,7 +70,6 @@ CREATE TABLE `comments` (
   CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-
 CREATE TABLE `menu` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` smallint(5) unsigned NOT NULL,
@@ -86,6 +85,13 @@ CREATE TABLE `log` (
   `user_agent` varchar(50) COLLATE utf8_bin NOT NULL,
   `lang` char(3) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE `serial` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name_cs` varchar(50) COLLATE utf8_bin NOT NULL,
+  `name_en` varchar(50) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 ";
 

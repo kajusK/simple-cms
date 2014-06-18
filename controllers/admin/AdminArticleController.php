@@ -109,12 +109,12 @@ class AdminArticleController extends Controller
 		}
 		$id = $param[0];
 
-		$comn = $this->_articleCommon(Article::getCategory($id), Comments::allowed($id));
+		$comn = $this->_articleCommon(Article::getCategory($id), Comments::allowed($id), Serial::getId($id));
 		$this->data['files_link'] = Url::get("admin", "files", "article", $id);
 		if (!$comn) return;
 
 		if (isset($_POST['name'])) {
-			if (Article::modify($id, $_POST['name'], $_POST['description'], $_POST['keywords'], $_POST['content'], $_POST['category'])) {
+			if (Article::modify($id, $_POST['name'], $_POST['description'], $_POST['keywords'], $_POST['content'], $_POST['category'], $_POST['serial'])) {
 				Comments::setPermissions($id, $_POST['comments']);
 				$this->view = false;
 				$this->redirect(Url::get("article", $id), 2);
@@ -159,7 +159,7 @@ class AdminArticleController extends Controller
 
 		if (isset($_POST['name'])) {
 			if (($id = Article::add($_POST['name'], $_POST['description'], $_POST['keywords'], $_POST['content'],
-			    $_POST['category'], $_POST['comments']))) {
+			    $_POST['category'], $_POST['comments'], $_POST['serial']))) {
 				$this->view = false;
 				$this->redirect(Url::get("article", $id), 2);
 			}
@@ -215,7 +215,7 @@ class AdminArticleController extends Controller
 	 *
 	 * @return boolean false if menu is empty
 	 */
-	private function _articleCommon($cat_id = false, $com_selected = 1) {
+	private function _articleCommon($cat_id = false, $com_selected = 1, $set_id = false) {
 		$this->view = "admin/article";
 		$this->data = array('article_edit' => Lang::get("EDIT_ARTICLE"),
 				'article_name' => Lang::get("EDIT_TITLE"),
@@ -230,6 +230,9 @@ class AdminArticleController extends Controller
 				'comments_disabled' => Lang::get("COM_DISABLED"),
 				'com_settings' => Lang::get("COM_SETTINGS"),
 				'message_files' => Lang::get("FILE_TUTORIAL"),
+				'serial_choose' => Lang::get("CHOOSE_SERIAL"),
+				'no_serial' => Lang::get("EMPTY"),
+				'serial' => Serial::getAll(),
 				'com_selected' => $com_selected);
 
 		if (isset($_POST['name'])) {
@@ -237,10 +240,12 @@ class AdminArticleController extends Controller
 			$this->data['description'] = $_POST['description'];
 			$this->data['keywords'] = $_POST['keywords'];
 			$this->data['content'] = $_POST['content'];
-			$this->data['cat_id'] = isset($_POST['category']) ? $_POST['category'] : -1;
+			$this->data['cat_id'] = isset($_POST['category']) ? $_POST['category'] : 0;
 			$this->data['com_selected'] = $_POST['comments'];
+			$this->data['serial_id'] = isset($_POST['serial']) ? $_POST['serial'] : 0;
 		} else {
-			$this->data['cat_id'] = $cat_id ? $cat_id : -1;
+			$this->data['cat_id'] = $cat_id;
+			$this->data['serial_id'] = $set_id;
 		}
 
 		$this->data['category'] = $this->_categories();
@@ -249,7 +254,7 @@ class AdminArticleController extends Controller
 			if (isset($_POST['name']))
 				return false;
 		}
-		
+
 		return true;
 	}
 

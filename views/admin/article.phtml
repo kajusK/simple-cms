@@ -29,6 +29,14 @@ defined("IN_CMS") or die("Unauthorized access");
 		<?php endif; endforeach ?>
 	</select>
 
+	<b><?= $serial_choose ?>:</b>
+	<select name="serial">
+		<option value="0"><?= $no_serial ?></option>
+		<?php foreach ($serial as $s): if ($s['name']) : ?>
+		<option value="<?= $s['id'] ?>"<?php if ($s['id'] == $serial_id) : ?> selected="selected"<?php endif ?>><?= $s['name'] ?></option>
+		<?php endif; endforeach ?>
+	</select>
+
 	<b><?= $com_settings ?>:</b>
 	<select name="comments">
 		<option value="1" <?php if ($com_selected == 1) : ?> selected="selected"<?php endif ?>><?= $adding_allowed ?></option>

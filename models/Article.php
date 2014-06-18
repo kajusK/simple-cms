@@ -178,10 +178,11 @@ class Article
 	 * @param string $keywords
 	 * @param string $content
 	 * @param int $category
+	 * @param int $serial
 	 *
 	 * @return boolean true if succeed
 	 */
-	public static function modify($id, $name, $description, $keywords, $content, $category) {
+	public static function modify($id, $name, $description, $keywords, $content, $category, $serial) {
 		if (!self::existsIgnoreLang($id)) {
 			Message::add(Lang::get("NO_ARTICLE"));
 			return false;
@@ -209,7 +210,8 @@ class Article
 
 		//same problem
 		Db::update("articles", array('id' => $id), array('menu_id' => $category,
-					'date_modified' => date('Y-m-d H:i:s')));
+					'date_modified' => date('Y-m-d H:i:s'),
+					'serial_id' => $serial));
 
 		Message::add(Lang::get("SAVED"));
 		return true;
@@ -224,16 +226,17 @@ class Article
 	 * @param string $content
 	 * @param int $category
 	 * @param int $permissions for comments (@see Comments::setPermissions)
+	 * @param int $serial
 	 *
 	 * @return mixed false or new article id
 	 */
-	public static function add($name, $description, $keywords, $content, $category, $permissions) {
+	public static function add($name, $description, $keywords, $content, $category, $permissions, $serial) {
 		if (!self::_check($name, $description, $keywords))
 			return false;
 
 		$url = self::_prepareLink($name);
 
-		$affected = Db::insert("articles", array('menu_id' => $category));
+		$affected = Db::insert("articles", array('menu_id' => $category, 'serial_id' => $serial));
 		if (!$affected) {
 			Message::add(Lang::get("DB_UNABLE_SAVE"));
 			return false;
