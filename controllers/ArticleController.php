@@ -48,6 +48,7 @@ class ArticleController extends Controller
 		$this->data =  array_intersect_key($res, array_flip($keys));
 
 		$this->comments = new CommentController($param[0]);
+		$this->serial = new SerialController(array($res['serial_id'], $param[0]));
 	}
 
 	/**

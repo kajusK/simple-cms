@@ -22,6 +22,7 @@ $lang = array(
 		'NO_ARTICLE' 		=> "Požadovaný článek neexistuje.",
 		'NO_TRANSL'		=> "Omlouváme se, tento článek nebyl do českého jazyka přeložen.",
 		'NOT_FOUND'		=> "Stránka nenalezena",
+		'SERIAL'		=> "Seriál",
 
 		'TITLE_NOT_FOUND'	=> "Stránka nenalezena",
 		'TITLE_ADD_COM'		=> "Přidat komentář",

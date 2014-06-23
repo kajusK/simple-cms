@@ -34,6 +34,29 @@ class Serial
 	}
 
 	/**
+	 * Get all serial parts given serial id
+	 *
+	 * @param $id serial id
+	 * @return mixed false or array of articles
+	 */
+	public static function getSerials($id) {
+		return Db::query("SELECT a.id, l.title, l.url from articles_".Lang::getLang()." AS l JOIN articles AS a ON l.id=a.id WHERE serial_id=?", array($id));
+	}
+	
+	/**
+	 * Get name of serial
+	 *
+	 * @param $id serial id
+	 * @return mixed false or string
+	 */
+	public static function getName($id) {
+		$ret = Db::queryRow("SELECT name_".Lang::getLang()." FROM serial WHERE id=?", array($id));
+		if (!$ret)
+			return false;
+		return $ret['name_'.Lang::getLang()];
+	}
+
+	/**
 	 * Add new serial item
 	 *
 	 * @param string $name entry name

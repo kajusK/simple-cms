@@ -22,7 +22,7 @@ class Article
 	 * @return mixed false or array of article content
 	 */
 	public static function getArticle($id, $expand=true) {
-		$ret = Db::queryRow("SELECT a.id,l.title,l.description,l.content,l.keywords,l.url,a.date_created as date FROM
+		$ret = Db::queryRow("SELECT a.id, a.serial_id, l.title,l.description,l.content,l.keywords,l.url,a.date_created as date FROM
 		       	  articles_".Lang::getLang()." AS l JOIN articles AS a ON l.id=a.id WHERE l.id=?", array($id));
 		if (!$expand)
 			return $ret;

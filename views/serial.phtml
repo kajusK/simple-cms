@@ -1,0 +1,26 @@
+<?php
+/**
+ * Yet another simple CMS
+ *
+ * @copyright 2014 Jakub Kaderka
+ * @license GNU General Public License, version 2; see LICENSE.txt
+ */
+
+//no direct access
+defined("IN_CMS") or die("Unauthorized access");
+?>
+
+<div id="serial">
+<h2><?= "$serial: $name" ?></h2>
+<ul>
+	<?php foreach ($parts as $p): ?>
+	<li>
+		<?php if ($skip != $p['id']) : ?>
+		<a href="<?= $p['link'] ?>"><?= $p['title'] ?></a>
+		<?php else : ?>
+			<?= $p['title'] ?>
+		<?php endif ?>
+	</li>
+	<?php endforeach ?>
+</ul>
+</div>

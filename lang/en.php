@@ -22,6 +22,7 @@ $lang = array(
 		'NO_ARTICLE'		=> "Required article doesn't exist.",
 		'NO_TRANSL'		=> "This article isn't available in English.",
 		'NOT_FOUND'		=> "Page not found",
+		'SERIAL'		=> "Serial",
 
 		'TITLE_NOT_FOUND'	=> "Page not found",
 		'TITLE_ADD_COM'		=> "Add comment",
