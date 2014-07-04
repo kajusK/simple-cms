@@ -184,14 +184,14 @@ class Menu
 		$ret = true;
 		if (strlen($name) < MENU_LENGTH_MIN) {
 			Message::add(Lang::get("MENU_SHORT"));
-			$err = false;
+			$ret = false;
 		} else if (strlen($name) > MENU_LENGTH_MAX) {
 			Message::add(Lang::get("MENU_LONG"));
-			$err = false;
+			$ret = false;
 		}
 		if ($parent != 0 && !self::itemExists($parent)) {
 			Message::add(Lang::get("MENU_NO_PARENT"));
-			$err = false;
+			$ret = false;
 		}
 
 		return $ret;
