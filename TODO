@@ -1,3 +1,6 @@
+log:
+	count visits of one ip in different days as multiple visits, not just one.
+
 editor:
 	add comments (delete/modify/ban) and categories control
 	adding images - full and thumbnail
