@@ -60,3 +60,17 @@ body {
 textarea {
 	resize: none;
 }
+/* **************************************************************
+ * Content of articles...
+ * ************************************************************** */
+#ar_content {
+	overflow:auto;
+}
+.center {
+	display: block;
+	margin: 0 auto;
+}
+
+.float_right {
+	float: right;
+}

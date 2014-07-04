@@ -13,6 +13,7 @@ body {
 	font-size: 13pt;
 	line-height: 120%;
 	color: #000000;
+	text-align: justify;
 
 	background-image: url("background.gif");
 	background-color: #CCCCCC;
@@ -66,7 +67,6 @@ a:hover {
 
 p {
 	text-indent: 30px;
-	margin: 0px;
 }
 /* ************************************************************
 * Page menu
@@ -184,4 +184,24 @@ p {
 .com_date {
 	font-size: 70%;
 	color: gray;
+}
+/* ************************************************************
+* Source codes
+************************************************************* */
+pre {
+	font-size: 12px;
+	background-color: gainsboro;
+	border: 1px solid gray;
+	line-height: 100%;
+	display: block;
+	overflow: auto;
+	max-height: 500px;
+}
+
+/* ************************************************************
+* Admin
+************************************************************* */
+.admin_menu_sub {
+	position: relative;
+	left: 10px;
 }
