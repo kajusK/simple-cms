@@ -71,7 +71,7 @@ class Error
 		self::log($msg, false);
 
 		if ($errno & error_reporting())
-			echo $msg;
+			echo $msg."<br/>";
 	}
 
 	/**
