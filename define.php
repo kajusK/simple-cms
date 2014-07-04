@@ -21,3 +21,5 @@ define("KEYWORDS_LENGTH", 50);
 define("URL_LENGTH", 50);
 define("MENU_LENGTH_MIN", 2);
 define("MENU_LENGTH_MAX", 15);
+define("SERIAL_LENGTH_MIN", 2);
+define("SERIAL_LENGTH_MAX", 30);

@@ -146,10 +146,10 @@ class Serial
 		$ret = true;
 		if (strlen($name) < SERIAL_LENGTH_MIN) {
 			Message::add(Lang::get("SERIAL_SHORT"));
-			$err = false;
+			$ret = false;
 		} else if (strlen($name) > SERIAL_LENGTH_MAX) {
 			Message::add(Lang::get("SERIAL_LONG"));
-			$err = false;
+			$ret = false;
 		}
 
 		return $ret;

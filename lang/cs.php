@@ -74,6 +74,11 @@ $lang = array(
 		'SERIAL_NO_ITEM'	=> "Položka neexistuje",
 		'SERIAL_SHORT'		=> "Jméno příliš krátké",
 		'SERIAL_LONG'		=> "Jméno příliš dlouhé",
+		'SERIAL_ADD'		=> "Přidat položku",
+		'SERIAL_EDIT'		=> "Editace seriálu",
+		'SERIAL_NO_ITEM'	=> "Položka neexistuje",
+		'SERIAL_NAME'		=> "Jméno",
+		'SERIAL_DELETE_ITEM'	=> "Smazat položku: %s",
 
 		'TITLE_LONG'		=> "Titulek je příliš dlouhý, maximální délka je ".TITLE_LENGTH_MAX,
 		'TITLE_SHORT'		=> "Titulek je příliš krátký, minimální délka je ".TITLE_LENGTH_MIN,

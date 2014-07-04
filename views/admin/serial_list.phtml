@@ -1,0 +1,23 @@
+<?php
+/**
+ * Yet another simple CMS
+ *
+ * @copyright 2014 Jakub Kaderka
+ * @license GNU General Public License, version 2; see LICENSE.txt
+ */
+
+//no direct access
+defined("IN_CMS") or die("Unauthorized access");
+?>
+<h1><?= $serial_edit ?></h1>
+
+<div id="admin_serial_menu">
+	<a href="<?= $add_link ?>"><?= $add_msg ?></a>
+</div><br/>
+
+<div id="admin_serial_list">
+	<?php foreach ($serial as $s): if ($s['name'] != "") : ?>
+		<a href="<?= $s['del'] ?>" class="admin_serial_del">X</a>
+		<a href="<?= $s['link'] ?>"><?= $s['name'] ?></a><br/>
+	<?php endif; endforeach ?>
+</div>

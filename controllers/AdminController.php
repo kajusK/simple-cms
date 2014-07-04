@@ -54,6 +54,10 @@ class AdminController extends Controller
 			$this->controller = new AdminMenuController($param);
 			break;
 
+		case "serial":
+			$this->controller = new AdminSerialController($param);
+			break;
+
 		default:
 			$this->_notFound();
 			break;
@@ -93,7 +97,9 @@ class AdminController extends Controller
 		$this->data['edit'] = Lang::get("EDIT");
 		$this->data['actions'] = array(Lang::get("ARTICLE") => Url::get("admin", "article"),
 				Lang::get("MENU") => Url::get("admin", "menu"),
-				Lang::get("COMMENT") => Url::get("admin", "comment"));
+				Lang::get("COMMENT") => Url::get("admin", "comment"),
+				Lang::get("SERIAL") => Url::get("admin", "serial"));
+
 		$this->data['logout'] = Lang::get("LOGOUT");
 		$this->data['logout_link'] = Url::get("admin", "logout");
 	}

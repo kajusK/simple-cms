@@ -1,0 +1,21 @@
+<?php
+/**
+ * Yet another simple CMS
+ *
+ * @copyright 2014 Jakub Kaderka
+ * @license GNU General Public License, version 2; see LICENSE.txt
+ */
+
+//no direct access
+defined("IN_CMS") or die("Unauthorized access");
+?>
+<h1><?= $serial_edit ?></h1>
+
+<form id="edit_serial" method="post" action="">
+<div>
+	<b><?= $serial_name ?>:</b><br/>
+	<input type="text" name="name" value="<?= $name ?>"/><br/>
+
+	<input type="submit" value="<?= $send ?>"/>
+</div>
+</form>
