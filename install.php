@@ -80,8 +80,7 @@ CREATE TABLE `menu` (
 
 CREATE TABLE `log` (
   `ip` varbinary(16) NOT NULL,
-  `visit_first` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `visit_last` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_agent` varchar(50) COLLATE utf8_bin NOT NULL,
   `lang` char(3) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`ip`)

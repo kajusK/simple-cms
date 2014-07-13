@@ -23,15 +23,15 @@ class Logging
 		self::$ip = $_SERVER['REMOTE_ADDR'];
 		$user_agent = $_SERVER['HTTP_USER_AGENT'];
 		$lang = Lang::getLang();
-		$date = date('Y-m-d H:i:s');
 
-		if (!self::_logExists(self::$ip)) {
-			Db::query("INSERT INTO `log` (`ip`, `user_agent`, `lang`, `visit_last`) VALUES (INET_ATON(?),?,?,?)",
-				       	array(self::$ip,$user_agent,$lang,$date), true);
+		$id = self::_logToday(self::$ip);
+		if (!$id) {
+			Db::query("INSERT INTO `log` (`ip`, `user_agent`, `lang`) VALUES (INET_ATON(?),?,?)",
+				array(self::$ip,$user_agent,$lang), true);
 			return;
 		}
 
-		Db::query("UPDATE `log` SET `user_agent`=?,`lang`=?,`visit_last`=? WHERE `ip`=INET_ATON(?)", array($user_agent,$lang,$date,self::$ip), true);
+		Db::query("UPDATE `log` SET `date`=? WHERE `id`=?", array(date('Y-m-d H:i:s'),$id), true);
 	}
 
 	/**
@@ -49,14 +49,14 @@ class Logging
 	 * @return int
 	 */
 	public static function visitorsToday() {
-		$res = Db::queryRow("SELECT COUNT(*) FROM `log` WHERE DATE(`visit_last`) = CURDATE()");
+		$res = Db::queryRow("SELECT COUNT(*) FROM `log` WHERE DATE(`date`) = CURDATE()");
 		if (!$res)
 			return 0;
 		return $res['COUNT(*)'];
 	}
 
 	/**
-	 * Number of unique IPs since first log
+	 * Number of visitors since first log
 	 *
 	 * @return int
 	 */
@@ -68,17 +68,15 @@ class Logging
 	}
 
 	/**
-	 * Was this ip logged before
+	 * Was this ip logged today already?
 	 *
 	 * @param string $ip
 	 * @return boolean
 	 */
-	private static function _logExists($ip) {
-		$res = Db::queryRow("SELECT COUNT(*) FROM `log` WHERE `ip` = INET_ATON(?)", array($ip));
+	private static function _logToday($ip) {
+		$res = Db::queryRow("SELECT `id` FROM `log` WHERE `ip` = INET_ATON(?) AND DATE(`date`) = CURDATE() ORDER BY `date` DESC", array($ip));
 		if (!$res)
-			return true;
-		if ($res['COUNT(*)'])
-			return true;
-		return false;
+			return false;
+		return $res['id'];
 	}
 }
