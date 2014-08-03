@@ -74,7 +74,7 @@ class Logging
 	 * @return boolean
 	 */
 	private static function _logToday($ip) {
-		$res = Db::queryRow("SELECT `id` FROM `log` WHERE `ip` = INET_ATON(?) AND DATE(`date`) = CURDATE() ORDER BY `date` DESC", array($ip));
+		$res = Db::queryRow("SELECT `id` FROM `log` WHERE `ip` = INET_ATON(?) AND DATE(`date`) = CURDATE() ORDER BY `date` DESC LIMIT 1", array($ip));
 		if (!$res)
 			return false;
 		return $res['id'];
