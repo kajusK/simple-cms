@@ -77,8 +77,10 @@ class CommentController extends Controller
 		$this->data['link_add'] = Url::get("comment", "add", $article_id);
 		$this->data['add_comment'] = Lang::get("ADD_COMMENT");
 		$this->data['not_allowed'] = Lang::get("COMMENTS_NOT_ALLOWED");
-		$this->data['allowed'] = Comments::allowed($article_id);
-		$this->data['comments'] = Comments::getAll($article_id);
+
+		$this->data['allowed'] = $allowed =  Comments::allowed($article_id);
+		if ($allowed)
+			$this->data['comments'] = Comments::getAll($article_id);
 
 		$this->view = "comments";
 	}
