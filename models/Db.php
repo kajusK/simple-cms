@@ -165,6 +165,8 @@ class Db
 			self::$result->free();
 			self::$result = false;
 		}
+		if (defined('DB_PROFILING') && DB_PROFILING)
+			echo "Query: '$query'</br>";
 
 		$stmt = self::$mysqli->prepare($query);
 		if ($stmt == false) {

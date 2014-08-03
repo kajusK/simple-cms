@@ -40,3 +40,5 @@ define("DESCRIPTION_CS", "Stránky o Linuxu, robotice, programování...");
 define("DESCRIPTION_EN", "Pages about Linuxu, robotics, programming...");
 //uncomment to show all possible errors
 define("DEBUG", true);
+//uncomment to profile db queries
+//define("DB_PROFILING", true);
