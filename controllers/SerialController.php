@@ -20,7 +20,7 @@ class SerialController extends Controller
 	 * @param array $param serial_id article_id
 	 */
 	public function __construct($param) {
-		if (count($param) != 2 || !is_numeric($param[0]) || !is_numeric($param[1]))
+		if (count($param) != 2 || !is_numeric($param[0]) || !is_numeric($param[1]) || !$param[0])
 			return;
 
 		$serial = Serial::getSerials($param[0]);
