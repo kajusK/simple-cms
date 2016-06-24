@@ -32,7 +32,7 @@ class Db
 
 		self::$mysqli = new mysqli($host, $user, $pass, $database, $port);
 		if (self::$mysqli->connect_errno) {
-			Error::log("Unable to connect to DB - ".self::$mysqli->connect_error);
+			Err::log("Unable to connect to DB - ".self::$mysqli->connect_error);
 			return false;
 		}
 		self::$mysqli->set_charset('utf8');
@@ -170,7 +170,7 @@ class Db
 
 		$stmt = self::$mysqli->prepare($query);
 		if ($stmt == false) {
-			Error::log("DB error - ".self::$mysqli->error);
+			Err::log("DB error - ".self::$mysqli->error);
 			return false;
 		}
 
@@ -184,7 +184,7 @@ class Db
 
 		$stmt->execute();
 		if ($stmt->error)
-			Error::log("DB error - ".$stmt->error);
+			Err::log("DB error - ".$stmt->error);
 
 		self::$result = $stmt->get_result();
 		self::$rows_affected = $stmt->affected_rows;

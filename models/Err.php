@@ -12,16 +12,16 @@ defined("IN_CMS") or die("Unauthorized access");
 /**
  * Error handling
  */
-class Error
+class Err
 {
 	private static $log_mask = 'E_ALL';
 	/**
 	 * Init error handling
 	 */
 	public static function init() {
-		set_error_handler('Error::errorHandler');
-		set_exception_handler('Error::exceptionHandler');
-		register_shutdown_function('Error::fatalHandler');
+		set_error_handler('Err::errorHandler');
+		set_exception_handler('Err::exceptionHandler');
+		register_shutdown_function('Err::fatalHandler');
 
 		if (defined("DEBUG") && DEBUG == true)
 			error_reporting(-1);
