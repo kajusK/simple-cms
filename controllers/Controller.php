@@ -80,7 +80,7 @@ abstract class Controller
 		if (!isset($string))
 			return false;
 
-		header("HTTP/1.1 ".$string);
+		header($_SERVER["SERVER_PROTOCOL"]." ".$string);
 		return true;
 	}
 
